@@ -1,0 +1,74 @@
+#include <stdio.h>
+
+int main(void)
+{
+    printf("----------------------------------------------------------\n");
+    printf(" Hey! Welcome to Scientific Calculator from CSE115 Project\n");
+    printf("----------------------------------------------------------\n");
+    printf("Select Your Mode:\n 1.Basic \n 2.Scientific\n ");
+    
+    int mode = 0;
+    if (scanf("%d", &mode) != 1) 
+    {
+        printf("Error: Please enter a valid number.\n");
+    }
+    
+    if (mode == 1)
+    {
+        printf("What type of operation you want?\nBe aware only with two operands\n");
+        printf("1.Addition\n2.Substruction\n3.Multiplication\n4.Division\n");
+        
+        int opn = 0;
+        if (scanf("%d", &opn) != 1) 
+        {
+            printf("Error: Please enter a valid number.\n");
+        }
+        if (opn == 1 || opn == 2 || opn == 3 || opn == 4)
+        {
+            printf("Now give your two operands:\n");
+            
+            int i = 0, j = 0;
+            if (scanf("%d %d", &i, &j) != 2) 
+            {
+                printf("Error: Invalid inputs for operands.\n");
+            }
+            
+            if (opn == 1)
+            {
+                printf("The sum is %d\n", i + j);
+            }
+            else if (opn == 2)
+            {
+                printf("The result is %d\n", i - j);
+            }
+            else if (opn == 3)
+            {
+                printf("The product is %d\n", i * j);
+            }
+            else if (opn == 4)
+            {
+                if (j == 0) 
+                {
+                    printf("Error: Division by zero is undefined.\n");
+                } 
+                else 
+                {
+                    printf("Result is %f\n", (float)i / j);
+                }
+            }
+        }
+        else 
+        {
+            printf("Error!!! Invalid Operation Input\n");
+        }
+    }
+    else if (mode == 2)
+    {
+        printf("Sorry Scientific Mode Not Available Right Now\n");
+    }
+    else 
+    {
+        printf("Invalid Mode Selection.\n");
+    }
+    
+}
