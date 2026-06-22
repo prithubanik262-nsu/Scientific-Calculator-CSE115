@@ -22,8 +22,9 @@ int main(void){
     Welcome_screen();
     int command;//taking the value for whether the calculator will continue running or just terminate
     int program_option;//this takes the value of option of a program to run
+    int running = 1;//this indicated whether the full calculator is running or not
 
-    while(1){
+    while(running){
         printf(">>> press 1 to continue or 0 to exit: ");
         scanf("%d", &command);
         if(command == 1){
