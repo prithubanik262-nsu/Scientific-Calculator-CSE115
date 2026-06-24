@@ -76,6 +76,8 @@ void Welcome_screen(){
     printf("\t\t|____________________________________|\n");
     printf("\n\n");
 }
+
+//this is a dedicated function to print out the names of the program
 void programs_names(){
     printf("\t>>>The programs are: \n\n");
     printf("\t  1.Power_Rootover\n");
@@ -88,14 +90,27 @@ void power_root(){
     printf("\n\t>>> This is power-root program\n");
 
     double a;//this is local variable exclusive to the power_root function
+
     int choice;//this variable stores the choice of user of what operation the user wants to use and this variable is used in switch-case
+
     double n;//this is for using n-th root and n-th power
-    int rerun_program = 1;//this is variable to control whether the program will rerun or not
-                         //I used a if-statement in the while-loop to update this variable and break out of this loop
+
+    int rerun_program = 1;/*this is variable to control whether the program will rerun or not
+                            A if-statement has been used in the while-loop to update this variable and break out of this loop
+                            this helps the user to stay at the current program without restarting the calculator after a task is finished
+                          */
+
+    double positive_part_of_number;//this variable handles the test-case where the user input negative value in square-root or n-th root
+
+    char imaginary ; /*this helps to see if the user has typed 'i' or 'I' in the terminal,
+                       so that imaginary functionality can be applied accordingly in the square function
+                     */
 
     while(rerun_program){
+        //whole functionality of this power_root program is in this if statement
         if(rerun_program == 1){
             printf("\n\n\t Press 0 to exit...\n\n");
+
             printf("\t >>> Available operations: \n");
             printf("\t 1. square\n");
             printf("\t 2. square-root\n");
@@ -105,28 +120,73 @@ void power_root(){
             printf("\t >>> Choose your operation: ");
             scanf("%d", &choice);
 
+            //this will make the program shut down and restart the calculator if the user types '0'
             if(choice == 0){
                 break;
             }
 
             printf("\t >>> Enter number you want to operate on: ");
-            scanf("%lf", &a);
+            scanf("%lf%c", &a, &imaginary);//using the "imaginary" variable to handle the imaginary test cases
 
             switch(choice){
                 case 1:
-                    printf("\t The square is: %.2lf", a*a);
-                    break;
+                    //this handles the test-case when the user types 'i' or 'I' in the terminal
+                    if(imaginary == 'i' || imaginary == 'I'){
+                        printf("\t The square of is: - %.2lf", a*a);
+                        break;
+                    }
+
+                    else{
+                        printf("\t The square is: %.2lf", a*a);
+                        break;
+                    }
                 case 2:
-                    printf("\t The square-root is: %.2lf", sqrt(a));
-                    break;
+                    //this handles the the test-case where the user inputs negative number
+                    if(a<0){
+                        positive_part_of_number = fabs(a);
+                        printf("\t The square-root is: %.2lf i", sqrt(positive_part_of_number));
+                        break;
+                    }
+
+                    else{
+                        printf("\t The square-root is: %.2lf", sqrt(a));
+                        break;
+                    }
                 case 3:
                     printf("\t >> Enter n:");
                     scanf("%lf", &n);
-                    printf("The %.3lf th power of %.0lf is: ", n, pow(a, n));
-                    break;
+                    //handling the imaginary number case
+                    if(imaginary == 'i' || imaginary == 'I'){
+                        int n1 =  (int)n;//converting the datatype
+                        int remain = n1%4;//this is to determine the multiplication of i or I
+
+                        switch(remain){
+                            case 0:
+                                printf("\t The %.0lf th power of %.0lf%c is: %.0lf%c \n", n,a,imaginary, pow(a, n),imaginary);
+                                break;
+                            case 1:
+                                printf("\t The %.0lf th power of %.0lf%c is: %.0lf%c \n", n,a,imaginary, pow(a, n), imaginary);
+                                break;
+                            case 2:
+                                printf("\t The %.0lf th power of %.0lf%c is: -%.0lf%c \n", n,a,imaginary, pow(a, n), imaginary);
+                                break;
+                            case 3:
+                                printf("\t The %.0lf th power of %.0lf%c is: -%.0lf%c \n", n,a,imaginary, pow(a, n), imaginary);
+                                break;
+                            default:
+                                printf("INVALID INPUT");
+                                break;
+                        }
+                    }
+                    else{
+                        printf("The %.3lf th power of %.0lf is: ", n, pow(a, n));
+                        break;
+                    }
+                    break;//this is the break of case 3
                 case 4:
                     printf("\t >> Enter n:");
                     scanf("%lf", &n);
+
                     printf("The %lf th root of %lf is: ", n, pow(a, 1.0/n));
                     break;
                 default:
