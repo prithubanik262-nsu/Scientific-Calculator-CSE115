@@ -226,7 +226,6 @@ void matrices(){
         //whole functionality of this program is in this if statement
         if(rerun == 1){
 
-
             //asking for operations
 
             printf("\n\t press 0 to exit\n");
