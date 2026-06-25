@@ -29,21 +29,20 @@ int main(void){
         scanf("%d", &command);
         if(command == 1){
             programs_names();
-            // printf("\t>>>Choose your program.\n");
-            // printf("\t  1.Power_Rootover");
+
             scanf(" %d", &program_option);
             switch(program_option){
                 case 1:
                     power_root();
-                    continue;
+                    break;
 
                 case 2:
                     matrices();
-                    continue;
+                    break;
 
                 case 3:
                     vector();
-                    continue;
+                    break;
 
                 default:
                     printf("\n\t \"INVALID OUTPUT\" \n\n");
@@ -91,8 +90,9 @@ void power_root(){
 
     double a;//this is local variable exclusive to the power_root function
 
-    int choice;//this variable stores the choice of user of what operation the user wants to use and this variable is used in switch-case
-
+    int choice;/*this variable stores the choice of user of what operation the user wants to use and this variable is used in switch-case
+                if choice is 0, then the while-loop will break and the calculator will go to the main menu
+                    */
     double n;//this is for using n-th root and n-th power
 
     int rerun_program = 1;/*this is variable to control whether the program will rerun or not
@@ -122,6 +122,7 @@ void power_root(){
 
             //this will make the program shut down and restart the calculator if the user types '0'
             if(choice == 0){
+                printf("\n\t exiting to main menu \n\n");
                 break;
             }
 
@@ -207,6 +208,84 @@ void power_root(){
 
 void matrices(){
     printf("\n\t>>>this is matrix program\n");
+    printf("\t matrix size is maximum 10 rows and 10 columns\n\n");
+
+    matrix A, B, C; /* matrix A & B will be the matrices that will be operated on
+                       the matrix C stores the solution after operation
+                    */
+
+    int choice;//this variable stores the choice of user of what operation the user wants to use and this variable is used in switch-case
+
+    int rerun = 1; /*this is variable to control whether the program will rerun or not
+                       A if-statement has been used in the while-loop to update this variable and break out of this loop
+                       this helps the user to stay at the current program without restarting the calculator after a task is finished
+                      */
+
+    while(rerun){
+
+        //whole functionality of this program is in this if statement
+        if(rerun == 1){
+
+
+            //asking for operations
+
+            printf("\n\t press 0 to exit\n");
+            printf("\n\t available operators......\n\n");
+            printf("\t 1. matrix addition \n");
+            printf("\t 2. matrix subtraction \n");
+            printf("\t 3. matrix multiplication \n");
+            printf("\t 4. determinant\n");
+            printf("\t 5. inverse of matrix\n");
+            printf("\t 6. transpose matrix\n");
+
+            printf("\n\t choose your operation: ");
+
+            scanf("%d", &choice);
+
+            if(choice == 0){
+                printf("\n\t exiting to main menu\n\n");
+                break;
+            }
+
+            switch(choice){
+                case 1:
+                    printf("\n\t this is matrix addition\n");
+                    break;
+
+                case 2:
+                    printf("\n\t this is matrix subtraction\n");
+                    break;
+
+                case 3:
+                    printf("\n\t this is matrix multiplication\n");
+                    break;
+
+                case 4:
+                    printf("\n\t this is matrix determinant\n");
+                    break;
+
+                case 5:
+                    printf("\n\t this is matrix inversion\n");
+                    break;
+
+                case 6:
+                    printf("\n\t this is matrix transpose\n");
+                    break;
+
+                default:
+                    printf("\n\tINVALID INPUT");
+                    break;
+
+            }
+
+        }
+
+        else{
+            break;
+        }
+    }
+
+
     printf("\n\n");
 
 }
