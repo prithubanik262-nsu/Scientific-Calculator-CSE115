@@ -1,20 +1,65 @@
 #include <stdio.h>
 #include<math.h>
 
-int main(){
+// This are function prototypes which tells the compiler that these mentioned funtios exist.
 
-    printf("What are you upto today?\n"); //this is the first thing that should pop up when user opens calc.
+void natural_log();
+void common_log();
+void log_base_n();
 
-    int a, b, sum;
-    printf("Enter your first number:  ");
-    scanf("%d", &a);
 
-    printf("Enter your second number: ");
-    scanf("%d", &b);
+int main()
 
-    sum = a+b;
+// This shall be displayed when log mode is chosen
+{
+       printf("|----------------------------------------------|\n");
+       printf("|       This is the logarithm part             |\n "); 
+       printf("|                                              |\n ");
+       printf("|----------------------------------------------|\n");
 
-    printf("Sum of them is:%d\n", sum);
+       int option;
+
+       printf("1. Natural log (ln)\n");
+       printf("2. Common Log\n");
+       printf("3. Log with any chosen base number\n");
+       printf("0. Return to the main menu\n");
+
+       printf("Enter your desired option: \n");
+       scanf("%d", &option);
+
+
+       switch(option) //this checks which option is chosen by the user.
+       {
+
+        case 1:
+        natural_log();
+        break;
+
+
+        case 2:
+        common_log();
+        break;
+
+
+        case 3:
+        log_base_n();
+        break;
+
+
+         //This exists from the log menu and return to the main menu.
+        case 0: 
+        printf("Going back to the menu...\n");
+        break;
+
+
+
+        // this one executes when the user inputs an invalid option.
+        default:
+        printf("Choose a valid option.\n");  
+
+
+
+       }
 
     return 0;
 }
