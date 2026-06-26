@@ -5,12 +5,18 @@
 #define max_matrix_size 10 //setting the maximum size that a matrix can have
 
 //creating a new matrix datatype
-typedef int matrix[max_matrix_size][max_matrix_size];
+typedef double matrix[max_matrix_size][max_matrix_size];
 
 //function prototypes
 void Welcome_screen();
 void programs_names();
+//all functions of power_root
 void power_root();
+//all functions of matrix
+int validate_matrix(int rows, int cols);
+void input_matrix(matrix mat, int rows, int cols);
+void print_matrix(matrix mat, int rows, int cols, char name);
+void matrix_addition();
 void matrices();
 void vector();
 
@@ -85,6 +91,7 @@ void programs_names(){
     printf("\t >>>Choose your program: ");
 }
 
+// ---- EVERYTHING OF POWER-ROOT FUNCTION IS IN HERE ----------
 void power_root(){
     printf("\n\t>>> This is power-root program\n");
 
@@ -206,6 +213,10 @@ void power_root(){
 
 }
 
+
+// ------- EVERYTHING OF MATRICES IS HERE ---------
+
+//the function which originally controls the matrix function
 void matrices(){
     printf("\n\t>>>this is matrix program\n");
     printf("\t matrix size is maximum 10 rows and 10 columns\n\n");
@@ -220,6 +231,8 @@ void matrices(){
                        A if-statement has been used in the while-loop to update this variable and break out of this loop
                        this helps the user to stay at the current program without restarting the calculator after a task is finished
                       */
+
+    int rows, cols;
 
     while(rerun){
 
@@ -246,9 +259,20 @@ void matrices(){
                 break;
             }
 
+            //after taking the choice the user will input rows and cols to work with
+            /*
+            printf("enter rows: ");
+            scanf("%d", &rows);
+            printf("enter columns: ");
+            scanf("%d", &cols);
+            */
+
+            printf("\n");
+
+
             switch(choice){
                 case 1:
-                    printf("\n\t this is matrix addition\n");
+                    matrix_addition();
                     break;
 
                 case 2:
@@ -284,10 +308,133 @@ void matrices(){
         }
     }
 
-
     printf("\n\n");
 
 }
+
+
+ //validate_matrix(), matrix_input() and print_matrix() functions are the backbone for the rest of the functions of matrix
+
+//this checks if the matrix exists or the matrix's size is bigger than the maximum size
+int validate_matrix(int rows, int cols){
+
+    if(rows > max_matrix_size || cols > max_matrix_size || rows <= 0 || cols <= 0){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+
+}
+
+//making a matrix of desired row and column by taking input from the user for each data on each row and column
+void input_matrix(matrix mat, int rows, int cols){
+
+    //firstly validating if the matrix's syntax is correct or not
+    if((validate_matrix(rows, cols)) == 0){
+        printf("\n\t INVALID MATRIX \n");
+    }
+
+    //taking input
+    //i and j could have been initialized with value 1, but an array is 0 indexed so there could be trouble later
+    for(int i = 0; i<rows; i++){
+        for(int j = 0; j<cols; j++){
+            printf("\n\t enter for row: %d and col: %d for matrix ", i+1, j+1);
+            scanf("%lf", &mat[i][j]);
+        }
+    }
+
+}
+
+//printing the matrix in a grid format
+void print_matrix(matrix mat, int rows, int cols, char name){
+
+    if((validate_matrix(rows, cols)) == 0){
+        printf("INVALID MATRIX");
+    }
+
+    printf("\n\t Printing for matrix %c\n", name);
+
+    for(int i = 0; i<rows; i++){
+        printf("\t| ");
+        for(int j = 0; j<cols; j++){
+            printf(" %.2lf ", mat[i][j]);
+        }
+        printf(" |\n");
+    }
+
+    printf("\n");
+
+
+}
+
+
+//now working on the core 6 functions of the matrix
+
+//addition between two functions
+void matrix_addition(){
+    printf("\n\t This is matrix addition \n");
+    printf("\t  Addition between two matrices \n");
+
+    matrix A, B, C;  //A and B will be the input and C will be the output
+
+    int rowA, rowB, colA, colB;  //user will input these values
+
+    int rowC, colC; //the result for each data in a specific row-column block will be stored here
+
+    //////////// taking data for matrix A ////////////////
+
+    printf("\t Input for matrix A \n");
+    printf("\t row of A: ");
+    scanf("%d", &rowA);
+    printf("\t column of A: ");
+    scanf("%d", &colA);
+
+    //at first going to check if the user has entered the right number of rows and cols
+    if((validate_matrix(rowA, colA)) == 0 ){
+        printf("\n\t INVALID rows or cols\n");
+    }
+
+    input_matrix(A, rowA, colA);
+
+    //////////// taking data for matrix B ////////////////
+
+    printf("\t Input for matrix B \n");
+    printf("\t row of B: ");
+    scanf("%d", &rowB);
+    printf("\t column of B: ");
+    scanf("%d", &colB);
+
+    //at first going to check if the user has entered the right number of rows and cols
+    if((validate_matrix(rowB, colB)) == 0 ){
+        printf("\n\t INVALID rows or cols\n");
+    }
+
+    //checking if the dimensions are valid
+    if( (rowA != rowB) || (colA !=colB) ){
+        printf("\n\t the rows and the columns of the matrices should be equal in order to operate addition between them\n");
+    }
+
+    input_matrix(B, rowB, colB);
+
+    rowC = rowA;
+    colC = colA;
+
+    print_matrix(A, rowA, colA, 'A');
+    print_matrix(B, rowB, colB,  'B');
+
+    //adding the elements of the two matrices into the 3rd matrix
+    for(int i = 0; i< rowA; i++){
+        for(int j = 0; j< colA; j++){
+            C[i][j] = A[i][j] + B[i][j];
+        }
+    }
+
+    printf("\n\t The sum of the two matrices is given below \n");
+    print_matrix(C, rowC, colC, 'C');
+
+}
+
 
 void vector(){
     printf("\n\t>>>this vector program\n");
