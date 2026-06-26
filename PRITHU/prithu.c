@@ -259,13 +259,6 @@ void matrices(){
                 break;
             }
 
-            //after taking the choice the user will input rows and cols to work with
-            /*
-            printf("enter rows: ");
-            scanf("%d", &rows);
-            printf("enter columns: ");
-            scanf("%d", &cols);
-            */
 
             printf("\n");
 
