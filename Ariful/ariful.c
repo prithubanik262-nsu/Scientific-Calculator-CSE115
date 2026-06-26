@@ -43,6 +43,11 @@ int main(){
                           // If the number is negative, we display an error message and exit the program.
                        }
 
+            else if (num >20){
+                printf("error! the number is too large");
+                //exceeds the capacity of a 64 bit integer
+            }
+             
             else {
                           for(int i = 1; i <= num; ++i) { // Multiplies the current value of i with factorial and stores the result in factorial.
                               fact *= i;//this is working as fact = fact * i
