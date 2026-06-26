@@ -45,7 +45,7 @@ int main(){
 
             else if (num >20){
                 printf("error! the number is too large");
-                //exceed the capacity of a 64 bit integer
+                //exceeds the capacity of a 64 bit integer
             }
              
             else {
