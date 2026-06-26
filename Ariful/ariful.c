@@ -45,7 +45,7 @@ int main(){
 
             else {
                           for(int i = 1; i <= num; ++i) { // Multiplies the current value of i with factorial and stores the result in factorial.
-                              fact *= i;//this worke is working as fact = fact * i
+                              fact *= i;//this is working as fact = fact * i
                           } 
 
                         }
