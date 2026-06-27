@@ -17,7 +17,9 @@ int validate_matrix(int rows, int cols);
 void input_matrix(matrix mat, int rows, int cols);
 void print_matrix(matrix mat, int rows, int cols, char name);
 void matrix_addition();
+void matrix_subtraction();
 void matrices();
+//all functions of vector
 void vector();
 
 
@@ -269,7 +271,7 @@ void matrices(){
                     break;
 
                 case 2:
-                    printf("\n\t this is matrix subtraction\n");
+                    matrix_subtraction();
                     break;
 
                 case 3:
@@ -369,7 +371,9 @@ void matrix_addition(){
     printf("\n\t This is matrix addition \n");
     printf("\t  Addition between two matrices \n");
 
-    matrix A, B, C;  //A and B will be the input and C will be the output
+    matrix A, B, C;  /* matrix A & B will be the matrices that will be operated on
+                       the matrix C stores the solution after operation
+                     */
 
     int rowA, rowB, colA, colB;  //user will input these values
 
@@ -410,12 +414,14 @@ void matrix_addition(){
 
     input_matrix(B, rowB, colB);
 
+    //as rowA = rowB and colA = colB, rowC and colC can be equaled to either ones
     rowC = rowA;
     colC = colA;
 
     print_matrix(A, rowA, colA, 'A');
     print_matrix(B, rowB, colB,  'B');
 
+    //working on matrix C now
     //adding the elements of the two matrices into the 3rd matrix
     for(int i = 0; i< rowA; i++){
         for(int j = 0; j< colA; j++){
@@ -424,6 +430,92 @@ void matrix_addition(){
     }
 
     printf("\n\t The sum of the two matrices is given below \n");
+    print_matrix(C, rowC, colC, 'C');
+
+}
+
+void matrix_subtraction(){
+
+ printf("\n\t This is matrix subtraction \n");
+    printf("\t  Subtraction between two matrices \n");
+
+    matrix A, B, C;  /* matrix A & B will be the matrices that will be operated on
+                       the matrix C stores the solution after operation
+                     */
+
+    int rowA, rowB, colA, colB;  //user will input these values
+
+    int rowC, colC; //the result for each data in a specific row-column block will be stored here
+
+    //////////// taking data for matrix A ////////////////
+
+    printf("\t Input for matrix A \n");
+    printf("\t row of A: ");
+    scanf("%d", &rowA);
+    printf("\t column of A: ");
+    scanf("%d", &colA);
+
+    //at first going to check if the user has entered the right number of rows and cols
+    if((validate_matrix(rowA, colA)) == 0 ){
+        printf("\n\t INVALID rows or cols\n");
+    }
+
+    input_matrix(A, rowA, colA);
+
+    //////////// taking data for matrix B ////////////////
+
+    printf("\t Input for matrix B \n");
+    printf("\t row of B: ");
+    scanf("%d", &rowB);
+    printf("\t column of B: ");
+    scanf("%d", &colB);
+
+    //at first going to check if the user has entered the right number of rows and cols
+    if((validate_matrix(rowB, colB)) == 0 ){
+        printf("\n\t INVALID rows or cols \n");
+    }
+
+    //checking if the dimensions are valid
+    if( (rowA != rowB) || (colA !=colB) ){
+        printf("\n\t the rows and the columns of the matrices should be equal in order to operate addition between them\n");
+    }
+
+    input_matrix(B, rowB, colB);
+
+    //as rowA = rowB and colA = colB, rowC and colC can be equaled to either ones
+    rowC = rowA;
+    colC = colA;
+
+    print_matrix(A, rowA, colA, 'A');
+    print_matrix(B, rowB, colB,  'B');
+
+
+    //working on matrix C now
+    //subtracting the elements of the two matrices into the 3rd matrix
+
+    int choose_how_to_subtract;//this is used to let the user choose whether he/she wants to do A-B or B-A
+
+    printf("\n\t What do you want to do?");
+    printf("\n\t type 1 to choose A-B or type 2 to choose B-A : ");
+    scanf("%d", &choose_how_to_subtract);
+
+    if(choose_how_to_subtract == 1){
+        for(int i = 0; i< rowA; i++){
+            for(int j = 0; j< colA; j++){
+                C[i][j] = A[i][j] - B[i][j];
+            }
+        }
+    }
+
+    else{
+         for(int i = 0; i< rowA; i++){
+            for(int j = 0; j< colA; j++){
+                C[i][j] = B[i][j] - A[i][j];
+            }
+        }
+    }
+
+    printf("\n\t The subtraction of the two matrices is given below \n");
     print_matrix(C, rowC, colC, 'C');
 
 }
