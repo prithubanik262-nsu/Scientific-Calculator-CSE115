@@ -13,11 +13,13 @@ void programs_names();
 //all functions of power_root
 void power_root();
 //all functions of matrix
+int valid_dimension_to_multiply(int row, int col);
 int validate_matrix(int rows, int cols);
 void input_matrix(matrix mat, int rows, int cols);
 void print_matrix(matrix mat, int rows, int cols, char name);
 void matrix_addition();
 void matrix_subtraction();
+void matrix_multiplication();
 void matrices();
 //all functions of vector
 void vector();
@@ -275,7 +277,7 @@ void matrices(){
                     break;
 
                 case 3:
-                    printf("\n\t this is matrix multiplication\n");
+                    matrix_multiplication();
                     break;
 
                 case 4:
@@ -308,7 +310,19 @@ void matrices(){
 }
 
 
- //validate_matrix(), matrix_input() and print_matrix() functions are the backbone for the rest of the functions of matrix
+ //  valid_dimension_to_multiply(), validate_matrix(), matrix_input() and print_matrix() functions are the backbone for the rest of the functions of matrix
+
+//this function is used in multiply_matrix function to check if the matrices are multiplyable
+int valid_dimension_to_multiply(int col, int row){
+
+    if(col == row){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+
+}
 
 //this checks if the matrix exists or the matrix's size is bigger than the maximum size
 int validate_matrix(int rows, int cols){
@@ -520,6 +534,110 @@ void matrix_subtraction(){
 
 }
 
+void matrix_multiplication(){
+
+    printf("\n\t This is matrix multiplication \n");
+    printf("\t  Multiply between two matrices \n");
+
+    matrix A, B, C;  /* matrix A & B will be the matrices that will be operated on
+                       the matrix C stores the solution after operation
+                     */
+
+    int rowA, rowB, colA, colB;  //user will input these values
+
+    int rowC, colC; //the result for each data in a specific row-column block will be stored here
+
+    //////////// taking data for matrix A ////////////////
+
+    printf("\t Input for matrix A \n");
+    printf("\t row of A: ");
+    scanf("%d", &rowA);
+    printf("\t column of A: ");
+    scanf("%d", &colA);
+
+    //at first going to check if the user has entered the right number of rows and cols
+    if((validate_matrix(rowA, colA)) == 0 ){
+        printf("\n\t INVALID rows or cols\n");
+    }
+
+    input_matrix(A, rowA, colA);
+
+    //////////// taking data for matrix B ////////////////
+
+    printf("\t Input for matrix B \n");
+    printf("\t row of B: ");
+    scanf("%d", &rowB);
+    printf("\t column of B: ");
+    scanf("%d", &colB);
+
+    //at first going to check if the user has entered the right number of rows and cols
+    if((validate_matrix(rowB, colB)) == 0 ){
+        printf("\n\t INVALID rows or cols\n");
+    }
+
+
+    input_matrix(B, rowB, colB);
+
+    //taking input for how the user wants to multiply
+    int choose_how_to_multiply;
+    printf("\n\t Choose how to multiply... \n");
+    printf("\n\t type 1 to AxB or type 2 to BxA: ");
+    scanf("")
+
+    // AxB
+    if(choose_how_to_multiply == 1){
+        if(valid_dimension_to_multiply(colA, rowB)){
+             for(int i = 0; i< rowA; i++){
+                for(int j = 0; j< colB; j++){
+                    C[i][j] = 0; //initializing the value for C matrix's one cell
+                    for(int k = 0; k < colA; k++){ // k<colA and k<rowB are identical
+                        C[i][j] += A[i][k] * B[k][j];//k transverses through A's row and B's column
+                    }
+                }
+            }
+        }
+        else{
+            printf("\n\t Dimensions are invalid!!\n");
+            printf("Column of A must be equal to Row of B");
+        }
+    }
+
+     // BxA
+     if(choose_how_to_multiply == 2){
+        if(valid_dimension_to_multiply(colB, rowA)){
+             for(int i = 0; i< rowB; i++){
+                for(int j = 0; j< colA; j++){
+                    C[i][j] = 0; //initializing the value for C matrix's one cell
+                    for(int k = 0; k < colB; k++){ // k<colB and k<rowA are identical
+                        C[i][j] += B[i][k] * A[k][j];//k transverses through A's row and B's column
+                    }
+                }
+            }
+        }
+        else{
+            printf("\n\t Dimensions are invalid!!\n");
+            printf("Column of A must be equal to Row of B");
+        }
+    }
+
+    print_matrix(A, rowA, colA, 'A');
+    print_matrix(B, rowB, colB,  'B');
+
+    //working on matrix C now
+    //adding the elements of the two matrices into the 3rd matrix
+    for(int i = 0; i< rowA; i++){
+        for(int j = 0; j< colA; j++){
+            C[i][j] = 0; //initializing the value for C matrix's one cell
+            for(int k = 0; k < )
+        }
+    }
+
+    printf("\n\t The sum of the two matrices is given below \n");
+    print_matrix(C, rowC, colC, 'C');
+
+
+
+}
 
 void vector(){
     printf("\n\t>>>this vector program\n");
