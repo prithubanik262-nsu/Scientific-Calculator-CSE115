@@ -72,8 +72,6 @@ int main() {
             scanf("%d", &n);             // Read the value of n from the user.
             long long f = factorial(n); // Call the factorial function and store the result in f.
             if (f == -1) printf("Error: n must be >= 0\n");     // If the result is -1, print an error message indicating that n must be non-negative.
-            if (f > 20) 
-            printf("Warning: Factorial result may overflow for n > 20\n"); // If the result is greater than 20, print a warning message indicating that the factorial result may overflow for n > 20.
             else printf("%d! = %lld\n", n, f);                 // Otherwise, print the calculated factorial value.
             break;                                            // Break out of the switch statement after executing case 1
 
