@@ -631,19 +631,20 @@ void matrix_multiplication(){
 
 //===============================================================================================
 //all functions below are for solving matrix determinant
+
 void matrix_determinant(){
 
-    printf("\t\n This is matrix determinant\n");
-    printf("\t\n put input for the matrix\n");
-    printf("\t\n it must be a square matrix to find its determinant\n");
+    printf("\n\t This is matrix determinant\n");
+    printf("\n\t put input for the matrix\n");
+    printf("\n\t it must be a square matrix to find its determinant\n");
 
     matrix A;// this is the matrix whose determinant will be solved
 
     int row, col;
 
-    printf("\t\n enter rows: ");
+    printf("\n\t enter rows: ");
     scanf("%d", &row);
-    printf("\t\n enter columns: ");
+    printf("\n\t enter columns: ");
     scanf("%d", &col);
 
 
@@ -661,13 +662,18 @@ void matrix_determinant(){
 
     int det = calculate_determinant(A, size);
 
-    printf("the determinant is : %d \n", det);
+    printf("\n\t the determinant is : %d \n", det);
 }
 
-//this gets the matrix after canceling out the first row and any column
-void get_submatrix(matrix mat, matrix sub_mat, int skip_row, int skip_col, int size) {
-    int sub_matrix_row = 0, sub_matrix_col = 0;
 
+/*
+this is a helper matrix to store the matrix after removing the items in the row and column of previous matrix
+this will be used in the recursive function of determinant
+*/
+void get_submatrix(matrix mat, matrix sub_mat, int skip_row, int skip_col, int size) {//the size argument is the size of matrix mat, not sub-matrix
+    int sub_matrix_row , sub_matrix_col;
+
+    sub_matrix_row = 0;
     for (int i = 0; i < size; i++) {
         if (i == skip_row){
                 continue; // Skip the specified row
@@ -686,13 +692,12 @@ void get_submatrix(matrix mat, matrix sub_mat, int skip_row, int skip_col, int s
     }
 }
 
+
 /*
     this is a recursive function just to calculate the determinant
     this is why the function has a data-type so that it can return a value
 */
 int calculate_determinant(matrix mat, int size) {
-
-
 
     //Base case for 1x1 matrix
     if (size == 1) {
@@ -724,8 +729,6 @@ int calculate_determinant(matrix mat, int size) {
 
     return det;
 }
-
-
 
 //all functions above are for solving matrix determinan
 //===============================================================================================
