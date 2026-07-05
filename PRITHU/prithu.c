@@ -20,6 +20,8 @@ void print_matrix(matrix mat, int rows, int cols, char name);
 void matrix_addition();
 void matrix_subtraction();
 void matrix_multiplication();
+void matrix_determinant();
+int calculate_determinant(matrix mat, int size);
 void matrices();
 //all functions of vector
 void vector();
@@ -252,7 +254,6 @@ void matrices(){
             printf("\t 3. matrix multiplication \n");
             printf("\t 4. determinant\n");
             printf("\t 5. inverse of matrix\n");
-            printf("\t 6. transpose matrix\n");
 
             printf("\n\t choose your operation: ");
 
@@ -281,15 +282,11 @@ void matrices(){
                     break;
 
                 case 4:
-                    printf("\n\t this is matrix determinant\n");
+                    matrix_determinant();
                     break;
 
                 case 5:
                     printf("\n\t this is matrix inversion\n");
-                    break;
-
-                case 6:
-                    printf("\n\t this is matrix transpose\n");
                     break;
 
                 default:
@@ -582,7 +579,7 @@ void matrix_multiplication(){
     int choose_how_to_multiply;
     printf("\n\t Choose how to multiply... \n");
     printf("\n\t type 1 to AxB or type 2 to BxA: ");
-    scanf("")
+    scanf("%d", &choose_how_to_multiply);
 
     // AxB
     if(choose_how_to_multiply == 1){
@@ -623,14 +620,7 @@ void matrix_multiplication(){
     print_matrix(A, rowA, colA, 'A');
     print_matrix(B, rowB, colB,  'B');
 
-    //working on matrix C now
-    //adding the elements of the two matrices into the 3rd matrix
-    for(int i = 0; i< rowA; i++){
-        for(int j = 0; j< colA; j++){
-            C[i][j] = 0; //initializing the value for C matrix's one cell
-            for(int k = 0; k < )
-        }
-    }
+
 
     printf("\n\t The sum of the two matrices is given below \n");
     print_matrix(C, rowC, colC, 'C');
@@ -638,6 +628,108 @@ void matrix_multiplication(){
 
 
 }
+
+//===============================================================================================
+//all functions below are for solving matrix determinant
+void matrix_determinant(){
+
+    printf("\t\n This is matrix determinant\n");
+    printf("\t\n put input for the matrix\n");
+    printf("\t\n it must be a square matrix to find its determinant\n");
+
+    matrix A;// this is the matrix whose determinant will be solved
+
+    int row, col;
+
+    printf("\t\n enter rows: ");
+    scanf("%d", &row);
+    printf("\t\n enter columns: ");
+    scanf("%d", &col);
+
+
+    //at first going to check if the user has entered the right number of rows and cols
+    if((validate_matrix(row, col)) == 0 ){
+        printf("\n\t INVALID rows or cols\n");
+    }
+
+    input_matrix(A, row, col);
+
+
+    //---------------------------------------------------------------------
+
+    int size = row; //as row and col are same
+
+    int det = calculate_determinant(A, size);
+
+    printf("the determinant is : %d \n", det);
+}
+
+//this gets the matrix after canceling out the first row and any column
+void get_submatrix(matrix mat, matrix sub_mat, int skip_row, int skip_col, int size) {
+    int sub_matrix_row = 0, sub_matrix_col = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (i == skip_row){
+                continue; // Skip the specified row
+        }
+
+        sub_matrix_col = 0;
+        for (int j = 0; j < size; j++) {
+            if (j == skip_col){
+                    continue; // Skip the specified column
+            }
+
+            sub_mat[sub_matrix_row][sub_matrix_col] = mat[i][j];
+            sub_matrix_col++;
+        }
+        sub_matrix_row++;
+    }
+}
+
+/*
+    this is a recursive function just to calculate the determinant
+    this is why the function has a data-type so that it can return a value
+*/
+int calculate_determinant(matrix mat, int size) {
+
+
+
+    //Base case for 1x1 matrix
+    if (size == 1) {
+        return mat[0][0];
+    }
+
+    // Base case for 2x2 matrix
+    if (size == 2) {
+        return (mat[0][0] * mat[1][1]) - (mat[0][1] * mat[1][0]);
+    }
+
+    int det = 0;
+    matrix sub_mat; // Temporary workspace matrix for sub-calculations
+    int sign = 1;   // To handle the alternating signs (+1, -1, +1...)
+
+
+    // Loop through the first row (row 0)
+    for (int j = 0; j < size; j++) {
+        //  Generate the smaller sub-matrix by skipping row 0 and column j
+        get_submatrix(mat, sub_mat, 0, j, size);
+
+        // Recursively solving determinant of the smaller sub-matrix
+        // Multiplying it by the current element and the sign, adding it to the total
+        det += sign * mat[0][j] * calculate_determinant(sub_mat, size - 1);
+
+        // Flipping the sign for the next element
+        sign = -sign;
+    }
+
+    return det;
+}
+
+
+
+//all functions above are for solving matrix determinan
+//===============================================================================================
+
 
 void vector(){
     printf("\n\t>>>this vector program\n");
