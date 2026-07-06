@@ -21,7 +21,8 @@ void matrix_addition();
 void matrix_subtraction();
 void matrix_multiplication();
 void matrix_determinant();
-int calculate_determinant(matrix mat, int size);
+double calculate_determinant(matrix mat, int size);
+void matrix_inverse();
 void matrices();
 //all functions of vector
 void vector();
@@ -39,6 +40,7 @@ int main(void){
     while(running){
         printf(">>> press 1 to continue or 0 to exit: ");
         scanf("%d", &command);
+
         if(command == 1){
             programs_names();
 
@@ -60,8 +62,6 @@ int main(void){
                     printf("\n\t \"INVALID OUTPUT\" \n\n");
 
             }
-
-
         }
         else{
             printf("\n\t>>> Thank you for using the calculator.\n\n");
@@ -286,7 +286,7 @@ void matrices(){
                     break;
 
                 case 5:
-                    printf("\n\t this is matrix inversion\n");
+                    matrix_inverse();
                     break;
 
                 default:
@@ -345,7 +345,7 @@ void input_matrix(matrix mat, int rows, int cols){
     //i and j could have been initialized with value 1, but an array is 0 indexed so there could be trouble later
     for(int i = 0; i<rows; i++){
         for(int j = 0; j<cols; j++){
-            printf("\n\t enter for row: %d and col: %d for matrix ", i+1, j+1);
+            printf("\n\t enter for row: %d and col: %d >>> ", i+1, j+1);
             scanf("%lf", &mat[i][j]);
         }
     }
@@ -364,7 +364,7 @@ void print_matrix(matrix mat, int rows, int cols, char name){
     for(int i = 0; i<rows; i++){
         printf("\t| ");
         for(int j = 0; j<cols; j++){
-            printf(" %.2lf ", mat[i][j]);
+            printf(" %7.2lf ", mat[i][j]);
         }
         printf(" |\n");
     }
@@ -375,7 +375,7 @@ void print_matrix(matrix mat, int rows, int cols, char name){
 }
 
 
-//now working on the core 6 functions of the matrix
+//now working on the core 5 functions of the matrix
 
 //addition between two functions
 void matrix_addition(){
@@ -536,8 +536,9 @@ void matrix_multiplication(){
     printf("\n\t This is matrix multiplication \n");
     printf("\t  Multiply between two matrices \n");
 
-    matrix A, B, C;  /* matrix A & B will be the matrices that will be operated on
-                       the matrix C stores the solution after operation
+    matrix A, B, C;  /*
+                        matrix A & B will be the matrices that will be operated on
+                        the matrix C stores the solution after operation
                      */
 
     int rowA, rowB, colA, colB;  //user will input these values
@@ -583,6 +584,10 @@ void matrix_multiplication(){
 
     // AxB
     if(choose_how_to_multiply == 1){
+
+        rowC = rowA;
+        colC = colB;
+
         if(valid_dimension_to_multiply(colA, rowB)){
              for(int i = 0; i< rowA; i++){
                 for(int j = 0; j< colB; j++){
@@ -601,6 +606,10 @@ void matrix_multiplication(){
 
      // BxA
      if(choose_how_to_multiply == 2){
+
+        rowC = rowB;
+        colC = colA;
+
         if(valid_dimension_to_multiply(colB, rowA)){
              for(int i = 0; i< rowB; i++){
                 for(int j = 0; j< colA; j++){
@@ -622,7 +631,7 @@ void matrix_multiplication(){
 
 
 
-    printf("\n\t The sum of the two matrices is given below \n");
+    printf("\n\t The multiplication of the two matrices is given below \n");
     print_matrix(C, rowC, colC, 'C');
 
 
@@ -660,18 +669,20 @@ void matrix_determinant(){
 
     int size = row; //as row and col are same
 
-    int det = calculate_determinant(A, size);
+    double det = calculate_determinant(A, size);
 
-    printf("\n\t the determinant is : %d \n", det);
+    printf("\n\t the determinant is : %.2lf \n", det);
 }
 
 
 /*
 this is a helper matrix to store the matrix after removing the items in the row and column of previous matrix
 this will be used in the recursive function of determinant
+this is basically a new matrix after removing the first row and j-th column
 */
 void get_submatrix(matrix mat, matrix sub_mat, int skip_row, int skip_col, int size) {//the size argument is the size of matrix mat, not sub-matrix
-    int sub_matrix_row , sub_matrix_col;
+
+    int sub_matrix_row , sub_matrix_col;//this is the rows and cols of the new smaller matrix
 
     sub_matrix_row = 0;
     for (int i = 0; i < size; i++) {
@@ -679,7 +690,8 @@ void get_submatrix(matrix mat, matrix sub_mat, int skip_row, int skip_col, int s
                 continue; // Skip the specified row
         }
 
-        sub_matrix_col = 0;
+        sub_matrix_col = 0;//it is set to 0 after each iteration so that the loop again starts from the beginning without skipping any column
+
         for (int j = 0; j < size; j++) {
             if (j == skip_col){
                     continue; // Skip the specified column
@@ -697,7 +709,7 @@ void get_submatrix(matrix mat, matrix sub_mat, int skip_row, int skip_col, int s
     this is a recursive function just to calculate the determinant
     this is why the function has a data-type so that it can return a value
 */
-int calculate_determinant(matrix mat, int size) {
+double calculate_determinant(matrix mat, int size) {
 
     //Base case for 1x1 matrix
     if (size == 1) {
@@ -709,7 +721,7 @@ int calculate_determinant(matrix mat, int size) {
         return (mat[0][0] * mat[1][1]) - (mat[0][1] * mat[1][0]);
     }
 
-    int det = 0;
+    double det = 0;
     matrix sub_mat; // Temporary workspace matrix for sub-calculations
     int sign = 1;   // To handle the alternating signs (+1, -1, +1...)
 
@@ -719,12 +731,13 @@ int calculate_determinant(matrix mat, int size) {
         //  Generate the smaller sub-matrix by skipping row 0 and column j
         get_submatrix(mat, sub_mat, 0, j, size);
 
+        int sign = (j % 2 == 0) ? 1 : -1; //ternary operator
+
         // Recursively solving determinant of the smaller sub-matrix
         // Multiplying it by the current element and the sign, adding it to the total
         det += sign * mat[0][j] * calculate_determinant(sub_mat, size - 1);
 
-        // Flipping the sign for the next element
-        sign = -sign;
+
     }
 
     return det;
@@ -732,6 +745,74 @@ int calculate_determinant(matrix mat, int size) {
 
 //all functions above are for solving matrix determinan
 //===============================================================================================
+
+
+void matrix_inverse(){
+
+    printf("\n\t This is matrix inversion\n");
+    printf("\n\t put input for the matrix\n");
+    printf("\n\t it must be a square matrix to find its inverse\n");
+
+    matrix inverse_mat;// this is the matrix whose inverse will be solved
+
+    int row, col;
+
+    printf("\n\t enter rows: ");
+    scanf("%d", &row);
+    printf("\n\t enter columns: ");
+    scanf("%d", &col);
+
+
+    //at first going to check if the user has entered the right number of rows and cols
+    if((validate_matrix(row, col)) == 0 ){
+        printf("\n\t INVALID rows or cols\n");
+    }
+
+    //getting the matrix which is to be inverted
+    input_matrix(inverse_mat, row, col);
+
+
+    //---------------------------------------------------------------------
+
+    int size = row; //as row and col are same
+
+    double det = calculate_determinant(inverse_mat, size);
+
+    //when determinant is 0, inverse cannot be calculated
+    if(det == 0){
+        printf("\n\t There is no inverse of this matrix \n");
+    }
+
+    //test-case for 1x1 matrix
+    if(size == 1){
+        inverse_mat[0][0] == inverse_mat[0][0]/det;
+        printf("\n\t inverse is [%7.2lf] ", inverse_mat[0][0]);
+    }
+
+
+    matrix cofactor;
+
+    //getiing the cofactor matrix by using the sub-matrix system
+    for(int i = 0; i <size; i++){
+        for(int j = 0; j<size; j++){
+            matrix sub_mat; // this is the matrix whose determinant will be added in the i-th row and j-th column of cofactor matrix
+            get_submatrix(inverse_mat, sub_mat, i, j, size);//this will store the matrix in the sub_mat matrix skipping i-th row and j-th column
+            double sub_matrix_det = calculate_determinant(sub_mat, size-1);
+            int sign = ((i + j) % 2 == 0) ? 1 : -1; //ternary operator
+            cofactor[i][j] = sign * sub_matrix_det;
+        }
+    }
+
+    //getting the transpose and dividing it with determinan
+    for(int i = 0; i<size; i++){
+        for(int j = 0; j<size; j++){
+            inverse_mat[i][j] = cofactor[j][i]/det;
+        }
+    }
+
+    print_matrix(inverse_mat, row, col, 'I');
+
+}
 
 
 void vector(){
