@@ -8,6 +8,7 @@
 typedef double matrix[max_matrix_size][max_matrix_size];
 
 //function prototypes
+//===================
 void Welcome_screen();
 void programs_names();
 //all functions of power_root
@@ -22,11 +23,11 @@ void matrix_subtraction();
 void matrix_multiplication();
 void matrix_determinant();
 double calculate_determinant(matrix mat, int size);
+void get_submatrix(matrix mat, matrix sub_mat, int skip_row, int skip_col, int size);
 void matrix_inverse();
 void matrices();
 //all functions of vector
 void vector();
-
 
 
 
@@ -67,12 +68,9 @@ int main(void){
             printf("\n\t>>> Thank you for using the calculator.\n\n");
             break;
         }
-
     }
 
     return 0;
-
-
 
 }
 
