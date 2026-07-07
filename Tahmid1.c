@@ -1,128 +1,145 @@
 #include <stdio.h>
-#include<math.h>
+#include <math.h>
 
-// This are function prototypes which tells the compiler that these mentioned funtions exist.
-
+// These are function prototypes. They tell the compiler that these functions exist.
+void log_menu();
 void natural_log();
 void common_log();
 void log_base_n();
 
-
 int main()
-
-// This shall be displayed when log mode is chosen
 {
-       printf("|----------------------------------------------|\n");
-       printf("|       This is the logarithm part             |\n ");
-       printf("|                                              |\n ");
-       printf("|----------------------------------------------|\n");
-
-       int option;
-
-       printf("1. Natural log (ln)\n");
-       printf("2. Common Log\n");
-       printf("3. Log with any chosen base number\n");
-       printf("0. Return to the main menu\n");
-
-       printf("Enter your desired option: \n");
-       scanf("%d", &option);
-
-
-       switch(option) //this checks which option is chosen by the user.
-       {
-
-        case 1:
-        natural_log();
-        break;
-
-
-        case 2:
-        common_log();
-        break;
-
-
-        case 3:
-        log_base_n();
-        break;
-
-
-         //This exists from the log menu and return to the main menu.
-        case 0:
-        printf("Going back to the menu...\n");
-        break;
-
-
-
-        // this one executes when the user inputs an invalid option.
-        default:
-        printf("Choose a valid option.\n");
-
- }
-
+    log_menu();
     return 0;
 }
 
-        //These codes are for Natural Log.
+// This shall be displayed when log mode is chosen
+void log_menu()
+{
+    printf("|----------------------------------------------|\n");
+    printf("|       This is the logarithm part             |\n");
+    printf("|                                              |\n");
+    printf("|----------------------------------------------|\n");
 
-        void natural_log(){
+    int option;
 
-       double num;
+    // the user has to choose the number of the desired option.
 
-                 printf("\nEnter number: ");
-                 scanf("%lf", &num);
+    printf("1. Natural log (ln)\n");
+    printf("2. Common Log\n");
+    printf("3. Log with any chosen base number\n");
+    printf("0. Return to the main menu\n");
 
+    printf("Enter your desired option: \n");
 
-       if(num <= 0){
+    if (scanf("%d", &option) != 1)
 
-        printf("Invalid number. Input a positive number.");
-       }
-       else {
-        printf("ln(%.2lf)= %.4lf\n", num, log(num));
+    // !=1 is used to heck if user entered a valid integer.
+    // scanf returning 1 if it successfully reads one number, of it doesnt return 1, the input is invalid.
+    // why not !=2? becuz i asked it to read one 1 item only.
+    {
+        printf("Invalid input.\n");
+        return;
+    }
 
-       }
+    switch (option) // this checks which option is chosen by the user.
+    {
+    case 1:
+        natural_log();
+        break;
+
+    case 2:
+        common_log();
+        break;
+
+    case 3:
+        log_base_n();
+        break;
+
+        // This exits the log menu and returns to the main menu.
+    case 0:
+        printf("Going back to the menu...\n");
+        break;
+
+        // This runs when the user inputs an invalid option.
+    default:
+        printf("Choose a valid option.\n");
+        break;
+    }
 }
 
-       // These codes are for common log.
-    void common_log(){
-        int num;
-       printf("\n Enter number: ");
-       scanf("%lf", &num);
+// These codes are for Natural Log.
+void natural_log()
+{
+    double num;
 
+    printf("\nEnter number: ");
+    if (scanf("%lf", &num) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
 
-       if(num <= 0){
-        printf("Invalid number. Input a positive number");
-       }
-         else{
-            printf("ln(%.2lf)= %.4lf\n", num,log10(num));
-         }
-        }
+    if (num <= 0)
+    {
+        printf("Invalid number. Input a positive number.\n");
+    }
+    else
+    {
+        printf("ln(%.2lf) = %.4lf\n", num, log(num));
+    }
+}
 
+// These codes are for common log.
+void common_log()
+{
+    double num;
 
-       //These codes are for log with any base.
+    printf("\nEnter number: ");
+    if (scanf("%lf", &num) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
 
-       void log_base_n(){
+    if (num <= 0)
+    {
+        printf("Invalid number. Input a positive number.\n");
+    }
+    else
+    {
+        printf("log10(%.2lf) = %.4lf\n", num, log10(num));
+    }
+}
 
-        double num, base;
+// These codes are for log with any base.
+void log_base_n()
+{
+    double num, base;
 
+    printf("Enter number: ");
+    if (scanf("%lf", &num) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
 
-        printf("Enter number: ");
-        scanf("%lf", &num);
+    printf("Now enter the base: ");
+    if (scanf("%lf", &base) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
 
-        printf("Now enter the base: ");
-        scanf("%lf", &base);
-
-
-        if(num <=0){
-            Printf("Error! Pease enter a valid input..");
-        }
-        else{
-            printf("log base %.2lf of %.2lf = %.4lf", base, num, log(num)/log(base));
-        }
-
-
-       }
-
-
-      
-
-
+    if (num <= 0)
+    {
+        printf("Error! Number must be positive.\n");
+    }
+    else if (base <= 0 || base == 1)
+    {
+        printf("Error! Base must be positive and not equal to 1.\n");
+    }
+    else
+    {
+        printf("log base %.2lf of %.2lf = %.4lf\n", base, num, log(num) / log(base));
+    }
