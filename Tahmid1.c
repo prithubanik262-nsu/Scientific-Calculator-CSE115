@@ -14,7 +14,7 @@ int main()
 }
 
 // This shall be displayed when log mode is chosen
-    void log_menu()
+void log_menu()
 {
     printf("|----------------------------------------------|\n");
     printf("|       This is the logarithm part             |\n");
@@ -23,8 +23,8 @@ int main()
 
     int option;
 
-    //the user has to choose the number of the desired option.
-    
+    // the user has to choose the number of the desired option.
+
     printf("1. Natural log (ln)\n");
     printf("2. Common Log\n");
     printf("3. Log with any chosen base number\n");
@@ -33,6 +33,10 @@ int main()
     printf("Enter your desired option: \n");
 
     if (scanf("%d", &option) != 1)
+
+    // !=1 is used to heck if user entered a valid integer.
+    // scanf returning 1 if it successfully reads one number, of it doesnt return 1, the input is invalid.
+    // why not !=2? becuz i asked it to read one 1 item only.
     {
         printf("Invalid input.\n");
         return;
@@ -40,25 +44,25 @@ int main()
 
     switch (option) // this checks which option is chosen by the user.
     {
-        case 1:
+    case 1:
         natural_log();
         break;
 
-        case 2:
+    case 2:
         common_log();
         break;
 
-        case 3:
+    case 3:
         log_base_n();
         break;
 
-    // This exits the log menu and returns to the main menu.
-        case 0:
+        // This exits the log menu and returns to the main menu.
+    case 0:
         printf("Going back to the menu...\n");
         break;
 
-    // This runs when the user inputs an invalid option.
-        default:
+        // This runs when the user inputs an invalid option.
+    default:
         printf("Choose a valid option.\n");
         break;
     }
