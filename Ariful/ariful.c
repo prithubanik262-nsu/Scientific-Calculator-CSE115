@@ -121,7 +121,7 @@ int main() {
 int main() {
     float a, b, c, discriminant, root1, root2;// ------Declare variables for coefficients, discriminant, and roots.
     
-    printf("Enter coefficients a, b and c: ");// ------Prompt the user to enter the coefficients of the quadratic equation.
+    printf("Enter coefficients  a (..can not be 0..) ,b and c: ");// ------Prompt the user to enter the coefficients of the quadratic equation.
     scanf("%f %f %f", &a, &b, &c);// ------------------Read the coefficients a, b, and c from the user.
     
     // Calculate discriminant
