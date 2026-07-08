@@ -103,3 +103,45 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+
+
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+
+
+int main() {
+    float a, b, c, discriminant, root1, root2;// ------Declare variables for coefficients, discriminant, and roots.
+    
+    printf("Enter coefficients a, b and c: ");// ------Prompt the user to enter the coefficients of the quadratic equation.
+    scanf("%f %f %f", &a, &b, &c);// ------------------Read the coefficients a, b, and c from the user.
+    
+    // Calculate discriminant
+    discriminant = b * b - 4 * a * c;
+    
+    if (discriminant > 0) { // -----------------It will calculate the roots if the discriminant is positive, indicating two distinct real roots.
+        root1 = (-b + sqrt(discriminant)) / (2 * a);// ---Calculate the first root using the quadratic formula.
+        root2 = (-b - sqrt(discriminant)) / (2 * a);// ---Calculate the second root using the quadratic formula.
+        printf("Two distinct real roots: %.2f and %.2f", root1, root2); // Print the two distinct real roots.
+    }
+    else if (discriminant == 0) { // ------Two equal real roots
+        root1 = root2 = -b / (2 * a);// ---Calculate the equal root when the discriminant is zero.
+        printf("Two equal real roots: %.2f and %.2f", root1, root2);// Print the two equal real roots.
+    }
+    else {
+        // ---------Complex roots
+        float realPart = -b / (2 * a);// ---Calculate the real part of the complex roots
+        float imagPart = sqrt(-discriminant) / (2 * a);// ---Calculate the imaginary part of the complex roots
+        printf("Complex roots: %.2f + %.2fi and %.2f - %.2fi", realPart, imagPart, realPart, imagPart);
+    } // ---------Print the complex roots in the form of a + bi and a - bi.
+    
+    return 0;
+}
