@@ -56,8 +56,44 @@ long long combination(int n, int r) { // ---------Function to calculate combinat
     return factorial(n) / (factorial(r) * factorial(n - r)); // Calculate combination using the formula C(n, r) = n! / (r! * (n-r)!)
 }
 
+
+
+void quadratic_roots(int a, int b, int c) { // Function to calculate and display the roots of a quadratic equation ax^2 + bx + c = 0.
+    if (a == 0) { // Check if 'a' is 0, which would make it not a quadratic equation.
+        printf("Error: 'a' cannot be 0 (not a quadratic equation)\n");
+        return ;
+                }
+ 
+    double discriminant = (b * b) - (4 * a * c);// Calculate the discriminant (b^2 - 4ac) to determine the nature of the roots.
+    
+    if (discriminant > 0) {
+        // Two real roots
+        double root1 = (-b + sqrt(discriminant)) / (2 * a);// Calculate the first root using the quadratic formula.
+        double root2 = (-b - sqrt(discriminant)) / (2 * a);// Calculate the second root using the quadratic formula.
+        printf("Two real roots:\n");
+        printf("Root 1: %.3f\n", root1);
+        printf("Root 2: %.3f\n", root2);
+    }
+    else if (discriminant == 0) {
+        // One real root
+        double root = -b / (2 * a);
+        printf("One real root:\n");
+        printf("Root: %.3f\n", root);
+    } else {
+        // Complex roots
+        double realPart = -b / (2 * a);// Calculate the real part of the complex roots.
+        double imaginaryPart = sqrt(-discriminant) / (2 * a);// Calculate the imaginary part of the complex roots.
+        printf("Complex roots:\n");// Print a message indicating that the roots are complex.
+        printf("Root 1: %.2f + %.2fi\n", realPart, imaginaryPart);
+        printf("Root 2: %.2f - %.2fi\n", realPart, imaginaryPart);
+    }
+
+
+
+}
+
 int main() {
-    int choice, n, r;
+    int choice, n, r, a, b, c;
 
     printf("=== Calculator: Factorial, Permutation & Combination ===\n");// ----Display the menu for the user to choose an operation.
     printf("1. Factorial (n!)\n");// --------------Option for calculating factorial.
@@ -93,8 +129,19 @@ int main() {
             if (c == -1) printf("Error: invalid n or r\n"); // If the result is -1, print an error message indicating that n or r is invalid (e.g., r > n or negative values).
             else printf("C(%d, %d) = %lld\n", n, r, c);    // Otherwise, print the calculated combination value.
             break;                                        // Break out of the switch statement after executing case 3.
-            
-            
+
+
+     
+        case 4:
+            printf("Enter coefficients a, b, c for ax^2 + bx + c = 0:\n");// Prompt the user to enter coefficients for the quadratic equation.
+            printf("Enter a: ");// Prompt the user to enter the coefficient a.
+            scanf("%d", &a);   // Read the value of a from the user.
+            printf("Enter b: ");// Prompt the user to enter the coefficient b.
+            scanf("%d", &b);   // Read the value of b from the user.
+            printf("Enter c: ");// Prompt the user to enter the coefficient c.
+            scanf("%d", &c);   // Read the value of c from the user.
+            quadratic_roots(a, b, c); // Call the function to calculate and display the roots of the quadratic equation.
+            break;    
 
 
             default:// -----------------------If the user enters a choice that is not 1, 2, or 3, print an error message indicating that the choice is invalid.
@@ -111,37 +158,5 @@ int main() {
 
 
 
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
 
 
-
-
-int main() {
-    float a, b, c, discriminant, root1, root2;// ------Declare variables for coefficients, discriminant, and roots.
-    
-    printf("Enter coefficients  a (..can not be 0..) ,b and c: ");// ------Prompt the user to enter the coefficients of the quadratic equation.
-    scanf("%f %f %f", &a, &b, &c);// ------------------Read the coefficients a, b, and c from the user.
-    
-    // Calculate discriminant
-    discriminant = b * b - 4 * a * c;
-    
-    if (discriminant > 0) { // -----------------It will calculate the roots if the discriminant is positive, indicating two distinct real roots.
-        root1 = (-b + sqrt(discriminant)) / (2 * a);// ---Calculate the first root using the quadratic formula.
-        root2 = (-b - sqrt(discriminant)) / (2 * a);// ---Calculate the second root using the quadratic formula.
-        printf("Two distinct real roots: %.2f and %.2f", root1, root2); // Print the two distinct real roots.
-    }
-    else if (discriminant == 0) { // ------Two equal real roots
-        root1 = root2 = -b / (2 * a);// ---Calculate the equal root when the discriminant is zero.
-        printf("Two equal real roots: %.2f and %.2f", root1, root2);// Print the two equal real roots.
-    }
-    else {
-        // ---------Complex roots
-        float realPart = -b / (2 * a);// ---Calculate the real part of the complex roots
-        float imagPart = sqrt(-discriminant) / (2 * a);// ---Calculate the imaginary part of the complex roots
-        printf("Complex roots: %.2f + %.2fi and %.2f - %.2fi", realPart, imagPart, realPart, imagPart);
-    } // ---------Print the complex roots in the form of a + bi and a - bi.
-    
-    return 0;
-}
