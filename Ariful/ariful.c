@@ -58,7 +58,7 @@ long long combination(int n, int r) { // ---------Function to calculate combinat
 
 
 
-void quadratic_roots(int a, int b, int c) { // Function to calculate and display the roots of a quadratic equation ax^2 + bx + c = 0.
+void polynomiyal_roots(int a, int b, int c) { // Function to calculate and display the roots of a quadratic equation ax^2 + bx + c = 0.
     if (a == 0) { // Check if 'a' is 0, which would make it not a quadratic equation.
         printf("Error: 'a' cannot be 0 (not a quadratic equation)\n");
         return ;
@@ -99,6 +99,7 @@ int main() {
     printf("1. Factorial (n!)\n");// --------------Option for calculating factorial.
     printf("2. Permutation P(n, r)\n");// ---------Option for calculating permutation.
     printf("3. Combination C(n, r)\n");// ---------Option for calculating combination.
+    printf("4. polynomiyal roots\n");// -----------Option for calculating roots.
     printf("Enter choice: ");// -------------------Prompt the user to enter their choice of operation.
     scanf("%d", &choice); // ----------------------Read the user's choice.
 
@@ -140,7 +141,7 @@ int main() {
             scanf("%d", &b);   // Read the value of b from the user.
             printf("Enter c: ");// Prompt the user to enter the coefficient c.
             scanf("%d", &c);   // Read the value of c from the user.
-            quadratic_roots(a, b, c); // Call the function to calculate and display the roots of the quadratic equation.
+            polynomiyal_roots(a, b, c); // Call the function to calculate and display the roots of the quadratic equation.
             break;    
 
 
