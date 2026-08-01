@@ -3,9 +3,14 @@
 #include <stdlib.h>
 
 #define max_matrix_size 10 //setting the maximum size that a matrix can have
+#define max_vector_size 3 //setting maximum dimensions a vector can have
+#define h 1e-5 // this is for vector divergence
 
 //creating a new matrix datatype
 typedef double matrix[max_matrix_size][max_matrix_size];
+//creating a new vector datatype
+typedef double vector[max_vector_size];
+
 
 //function prototypes
 //===================
@@ -27,11 +32,17 @@ void get_submatrix(matrix mat, matrix sub_mat, int skip_row, int skip_col, int s
 void matrix_inverse();
 void matrices();
 //all functions of vector
-void vector();
+void vectors();
+void vector_input(vector v);
+void vector_print(vector v);
+void vector_addition();
+void vector_subtraction();
+void vector_dot();
+void vector_cross();
+void vector_divergence();
 
 
-
-int main(void){
+int main(){
     printf("hello world\nthis is the scientific calculator project\n\n");
     Welcome_screen();
     int command;//taking the value for whether the calculator will continue running or just terminate
@@ -56,7 +67,7 @@ int main(void){
                     break;
 
                 case 3:
-                    vector();
+                    vectors();
                     break;
 
                 default:
@@ -220,23 +231,20 @@ void power_root(){
 
 // ------- EVERYTHING OF MATRICES IS HERE ---------
 
+int choice;/*this is a global variable
+            it stores the choice of user of what operation the user wants to use and this variable is used in switch-case of matrices()
+            it is also used in the  general_input_for_every_function() function
+            */
 //the function which originally controls the matrix function
 void matrices(){
     printf("\n\t>>>this is matrix program\n");
     printf("\t matrix size is maximum 10 rows and 10 columns\n\n");
-
-    matrix A, B, C; /* matrix A & B will be the matrices that will be operated on
-                       the matrix C stores the solution after operation
-                    */
-
-    int choice;//this variable stores the choice of user of what operation the user wants to use and this variable is used in switch-case
 
     int rerun = 1; /*this is variable to control whether the program will rerun or not
                        A if-statement has been used in the while-loop to update this variable and break out of this loop
                        this helps the user to stay at the current program without restarting the calculator after a task is finished
                       */
 
-    int rows, cols;
 
     while(rerun){
 
@@ -305,6 +313,7 @@ void matrices(){
 }
 
 
+
  //  valid_dimension_to_multiply(), validate_matrix(), matrix_input() and print_matrix() functions are the backbone for the rest of the functions of matrix
 
 //this function is used in multiply_matrix function to check if the matrices are multiplyable
@@ -351,13 +360,13 @@ void input_matrix(matrix mat, int rows, int cols){
 }
 
 //printing the matrix in a grid format
-void print_matrix(matrix mat, int rows, int cols, char name){
+void print_matrix(matrix mat, int rows, int cols, char matrix_name){
 
     if((validate_matrix(rows, cols)) == 0){
         printf("INVALID MATRIX");
     }
 
-    printf("\n\t Printing for matrix %c\n", name);
+    printf("\n\t Printing for matrix %c\n", matrix_name);
 
     for(int i = 0; i<rows; i++){
         printf("\t| ");
@@ -372,6 +381,39 @@ void print_matrix(matrix mat, int rows, int cols, char name){
 
 }
 
+void general_input_for_every_function(matrix A, matrix B, matrix C){
+
+     switch(choice){
+        case 1:
+            printf("\n\t This is matrix addition \n");
+            printf("\t  Addition between two matrices \n");
+            break;
+
+        case 2:
+            printf("\n\t This is matrix subtraction \n");
+            printf("\t  subtraction between two matrices \n");
+            break;
+
+        case 3:
+            printf("\n\t This is matrix multiplication \n");
+            printf("\t  multiplication between two matrices \n");
+            break;
+
+        case 4:
+            printf("\n\t This is matrix determinant \n");
+            break;
+
+        case 5:
+            printf("\n\t This is matrix addition \n");
+            break;
+
+        default:
+            printf("\n\tINVALID INPUT");
+            break;
+
+            }
+
+}
 
 //now working on the core 5 functions of the matrix
 
@@ -813,8 +855,207 @@ void matrix_inverse(){
 }
 
 
-void vector(){
+//all funtions for vector
+//===========================================================
+
+void vectors(){
     printf("\n\t>>>this vector program\n");
     printf("\n\n");
+
+    int rerun = 1; /*this is variable to control whether the program will rerun or not
+                       A if-statement has been used in the while-loop to update this variable and break out of this loop
+                       this helps the user to stay at the current program without restarting the calculator after a task is finished
+                      */
+
+    while(rerun){
+        if(rerun == 1){
+
+            //asking for operations
+
+            printf("\n\t press 0 to exit\n");
+            printf("\n\t available operators......\n\n");
+            printf("\t 1. Vector addition \n");
+            printf("\t 2. Vector substraction \n");
+            printf("\t 3. Vector dot multiplication \n");
+            printf("\t 4. Vector cross multiplication \n");
+
+            printf("\n\t choose your operation: ");
+
+            scanf("%d", &choice);
+
+            if(choice == 0){
+                printf("\n\t exiting to main menu\n\n");
+                break;
+            }
+
+
+            printf("\n");
+
+
+            switch(choice){
+                case 1:
+                    vector_addition();
+                    break;
+
+                case 2:
+                    vector_subtraction();
+                    break;
+
+                case 3:
+                    vector_dot();
+                    break;
+
+                case 4:
+                    vector_cross();
+                    break;
+
+                default:
+                    printf("\n\tINVALID INPUT");
+                    break;
+            }
+        }
+
+        else{
+            break;
+        }
+    }
+
+
+
 }
+
+//periferal functions///////////
+void vector_input(vector v){
+    char dimension[3] = {'i', 'j', 'k'};
+
+    for(int i = 0; i<max_vector_size; i++){
+        printf("\t enter for [%c]: ", dimension[i]);
+        scanf("%lf", &v[i]);
+    }
+
+}
+
+void vector_print(vector v){
+    char dimension[3] = {'i', 'j', 'k'};
+
+    for(int i = 0; i<max_vector_size; i++){
+        printf("%.2lf%c ", v[i], dimension[i]);
+            //this is to print '+' between the numbers
+        if(i>=0 && i<max_vector_size-1){printf("+ ");}
+    }
+
+}
+
+//primary functions////////////
+
+void vector_addition(){
+
+    printf("\n\t THIS IS VECTOR ADDITION \n");
+    vector a,b, result;
+
+
+    printf("\n\t Enter dimensions....\n");
+
+    //taking input for vector a;
+    printf("\t For vector A: \n");
+    vector_input(a);
+
+    //taking input for vector b;
+    printf("\t For vector B: \n");
+    vector_input(b);
+
+    //adding vectors
+    for(int i = 0; i< max_vector_size; i++){
+        result[i] = a[i] + b[i];
+    }
+
+    printf("\n\t Addition of two vectors is: ");
+    vector_print(result);
+
+}
+
+void vector_subtraction(){
+
+    printf("\n\t THIS IS VECTOR SUBTRACTION \n");
+    vector a,b, result;
+
+
+    printf("\n\t Enter dimensions....\n");
+
+    //taking input for vector a;
+    printf("\t For vector A: \n");
+    vector_input(a);
+
+    //taking input for vector b;
+    printf("\t For vector B: \n");
+    vector_input(b);
+
+    //subtracting vectors
+    for(int i = 0; i< max_vector_size; i++){
+        result[i] = a[i] - b[i];
+    }
+
+    printf("\n\t Subtraction of two vectors is: ");
+    vector_print(result);
+
+
+}
+
+void vector_dot(){
+
+    printf("\n\t THIS IS VECTOR DOT MULTIPLICATION \n");
+    vector a,b, result;
+
+
+    printf("\n\t Enter dimensions....\n");
+
+    //taking input for vector a;
+    printf("\t For vector A: \n");
+    vector_input(a);
+
+    //taking input for vector b;
+    printf("\t For vector B: \n");
+    vector_input(b);
+
+    //dot multiplying vectors
+    for(int i = 0; i< max_vector_size; i++){
+        result[i] = a[i] * b[i];
+    }
+
+    printf("\n\t Dot multiplication of two vectors is: ");
+    vector_print(result);
+
+
+}
+
+void vector_cross(){
+
+    printf("\n\t THIS IS VECTOR DOT MULTIPLICATION \n");
+    vector a,b, result;
+
+    printf("\n\t Enter dimensions....\n");
+
+    //taking input for vector a;
+    printf("\t For vector A: \n");
+    vector_input(a);
+
+    //taking input for vector b;
+    printf("\t For vector B: \n");
+    vector_input(b);
+
+    result[0] = (a[1]*b[2]) - (a[2]*b[1]);
+    result[1] = (a[2]*b[0]) - (a[0]*b[2]);
+    result[2] = (a[0]*b[1]) - (a[1]*b[0]);
+
+    printf("\n\t Cross multiplication of A and B vector: ");
+    vector_print(result);
+
+
+}
+
+
+
+
+
+
 
