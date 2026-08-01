@@ -4,7 +4,7 @@
 
 #define max_matrix_size 10 //setting the maximum size that a matrix can have
 #define max_vector_size 3 //setting maximum dimensions a vector can have
-#define h 1e-5 // this is for vector divergence
+
 
 //creating a new matrix datatype
 typedef double matrix[max_matrix_size][max_matrix_size];
@@ -39,7 +39,6 @@ void vector_addition();
 void vector_subtraction();
 void vector_dot();
 void vector_cross();
-void vector_divergence();
 
 
 int main(){
@@ -941,7 +940,9 @@ void vector_print(vector v){
     for(int i = 0; i<max_vector_size; i++){
         printf("%.2lf%c ", v[i], dimension[i]);
             //this is to print '+' between the numbers
-        if(i>=0 && i<max_vector_size-1){printf("+ ");}
+        if(i>=0 && i<(max_vector_size-1)){
+                printf("+ ");
+        }
     }
 
 }
