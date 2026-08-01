@@ -2,6 +2,8 @@
 #include <math.h>
 #include <stdlib.h>
 
+
+
 #define max_matrix_size 10 //setting the maximum size that a matrix can have
 #define max_vector_size 3 //setting maximum dimensions a vector can have
 
