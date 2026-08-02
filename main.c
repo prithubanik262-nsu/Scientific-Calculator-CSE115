@@ -152,6 +152,7 @@ int main(){
 
                 default:
                     printf("\n\t \"INVALID OUTPUT\" \n\n");
+                    break;
 
             }
         }
