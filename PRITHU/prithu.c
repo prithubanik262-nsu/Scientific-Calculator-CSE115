@@ -21,6 +21,7 @@ void programs_names();
 //all functions of power_root
 void power_root();
 //all functions of matrix
+void matrices();
 int valid_dimension_to_multiply(int row, int col);
 int validate_matrix(int rows, int cols);
 void input_matrix(matrix mat, int rows, int cols);
@@ -32,7 +33,6 @@ void matrix_determinant();
 double calculate_determinant(matrix mat, int size);
 void get_submatrix(matrix mat, matrix sub_mat, int skip_row, int skip_col, int size);
 void matrix_inverse();
-void matrices();
 //all functions of vector
 void vectors();
 void vector_input(vector v);
