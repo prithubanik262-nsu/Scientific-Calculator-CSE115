@@ -16,37 +16,21 @@ typedef double vector[max_vector_size];
 
 //==============================================================================
 /*   function prototypes    */
-/*    main programs protypes    */
+
+
 void Welcome_screen();
 void programs_names();
 
-void arithmetic_operations();
-void logs();
+
+/*                         PRITHU                            */
+//=============================================================
+
+/*    main programs protypes    */
 void power_root();
-void trigonometry();
 void matrices();
 void vectors();
-void factorials();
-void permutations();
-void combinations();
-void polynomial_roots_solving();
-
-
-//==============================================================================
 
 /*   peripheral functions prototypes   */
-
-/* |||||||||  arithmetic operations ||||||||||| */
-
-
-/* |||||||||         log            ||||||||||| */
-
-
-/* |||||||||      power_root        ||||||||||| */
-//there was no need of peripherals for this program
-
-/* |||||||||     trigonometry       ||||||||||| */
-
 
 /* |||||||||       matrices         ||||||||||| */
 
@@ -72,21 +56,31 @@ void vector_dot();
 void vector_cross();
 
 
-/* |||||||||      factorials        ||||||||||| */
 
 
-/* |||||||||     permutations       ||||||||||| */
-
-
-/* |||||||||     combinations       ||||||||||| */
-
-
-/* |||||||||  polynomial root solving ||||||||| */
+/*                         TAHMID                            */
+void logarithms();
+void arithmetic_operations();
 
 
 
+/*                          RUMI                             */
+void trigonometry();
+void conversion();
+
+/*                          ARIF                             */
 
 
+/*    main programs protypes    */
+void factorials();
+void permutations();
+void combinations();
+void polynomial_roots_solving();
+
+/*   peripheral functions prototypes   */
+
+/* |||||||||       factorials         ||||||||||| */
+long long factorial(int n);
 
 
 
@@ -114,7 +108,7 @@ int main(){
                     break;
 
                 case 2:
-                    logs();
+                    logarithms();
                     break;
 
                 case 3:
@@ -149,6 +143,10 @@ int main(){
                     polynomial_roots_solving();
                     break;
 
+                case 11:
+                    conversion();
+                    break;
+
 
                 default:
                     printf("\n\t \"INVALID OUTPUT\" \n\n");
@@ -177,7 +175,6 @@ int rerun_program = 1;/*this is variable to control whether the program will rer
                         this helps the user to stay at the current program without restarting the calculator after a task is finished
                        */
 
-
 //this will be printed at the very beginning
 void Welcome_screen(){
     printf("\t\t ____________________________________ \n");
@@ -189,7 +186,6 @@ void Welcome_screen(){
     printf("\t\t|____________________________________|\n");
     printf("\n\n");
 }
-
 
 //the names are in cronological order of the project ideas
 void programs_names(){
@@ -205,26 +201,18 @@ void programs_names(){
     printf("\t   8. Permutation \n\n");
     printf("\t   9. Combination \n\n");
     printf("\t  10. Polynomial roots solving \n\n");
+    printf("\t  11. Conversion \n\n");
     printf("\t >>>  Choose your program: ");
 }
 
 
-/* |||| main function programs |||| */
-/*   all functionalities of every program will be written in these functions*/
-/* helper and peripheral functions will be given below of this main functions  */
-
-void arithmetic_operations(){
+/*                 function definations                  */
 
 
-}
+/*                    PRITHU                     */
+//=================================================
 
-
-void logs(){
-
-
-}
-
-//done
+/*           main functions       */
 void power_root(){
 
     printf("\n\t>>> This is power-root program\n");
@@ -234,7 +222,7 @@ void power_root(){
     double n;//this is for using n-th root and n-th power
 
     double positive_part_of_number;//this variable handles the test-case where the user input negative value in square-root or n-th root
-
+    
     char imaginary ; /*this helps to see if the user has typed 'i' or 'I' in the terminal,
                        so that imaginary functionality can be applied accordingly in the square function
                      */
@@ -335,15 +323,7 @@ void power_root(){
 
     printf("\n\n");
 
-
 }
-
-
-void trigonometry(){
-
-
-}
-
 
 void matrices(){
     printf("\n\t>>>this is matrix program\n");
@@ -404,7 +384,6 @@ void matrices(){
 
 }
 
-
 void vectors(){
 
     printf("\n\t>>>this vector program\n");
@@ -462,74 +441,15 @@ void vectors(){
         }
     }
 
-
-
 }
 
 
-void factorials(){
+/*        periferal functions    */
 
-
-}
-
-
-void permutations(){
-
-
-}
-
-
-void combinations(){
-
-
-}
-
-
-void polynomial_roots_solving(){
-
-
-}
-
-
-//========================================================================================
-//========================================================================================
-
-
-/* helper and peripheral functions will be given here    */
-/* these will be added only in the program functions as the coder intends */
-
-
-
-
-
-/* |||||||||  arithmetic operations ||||||||||| */
-
-
-//======================================================================================
-/* |||||||||         log            ||||||||||| */
-
-
-//======================================================================================
-/* |||||||||      power_root        ||||||||||| */
-
-
-//======================================================================================
-/* |||||||||     trigonometry       ||||||||||| */
-
-
-//======================================================================================
 /* |||||||||       matrices         ||||||||||| */
 
-
-// ------- EVERYTHING OF MATRICES IS HERE ---------
-
-
-//the function which originally controls the matrix function
-
-
-
-
- //  valid_dimension_to_multiply(), validate_matrix(), matrix_input() and print_matrix() functions are the backbone for the rest of the functions of matrix
+ //  valid_dimension_to_multiply(), validate_matrix(), matrix_input() 
+ //  and print_matrix() functions are the backbone for the rest of the functions of matrix
 
 //this function is used in multiply_matrix function to check if the matrices are multiplyable
 int valid_dimension_to_multiply(int col, int row){
@@ -850,7 +770,6 @@ void matrix_multiplication(){
     print_matrix(B, rowB, colB,  'B');
 
 
-
     printf("\n\t The multiplication of the two matrices is given below \n");
     print_matrix(C, rowC, colC, 'C');
 
@@ -893,10 +812,9 @@ void matrix_determinant(){
     printf("\n\t the determinant is : %.2lf \n", det);
 }
 
-
 /*
-this is a helper matrix to store the matrix after removing the items in the row and column of previous matrix
-this will be used in the recursive function of determinant
+this is a helper matrix to store the matrix after removing the items in the row and column 
+of previous matrix this will be used in the recursive function of determinant
 this is basically a new matrix after removing the first row and j-th column
 */
 void get_submatrix(matrix mat, matrix sub_mat, int skip_row, int skip_col, int size) {//the size argument is the size of matrix mat, not sub-matrix
@@ -1040,9 +958,7 @@ void matrix_inverse(){
 }
 
 
-//======================================================================================
 /* |||||||||       vectors          ||||||||||| */
-
 
 void vector_input(vector v){
     char dimension[3] = {'i', 'j', 'k'};
@@ -1170,31 +1086,197 @@ void vector_cross(){
 
     printf("\n\t Cross multiplication of A and B vector: ");
     vector_print(result);
+}
+
+
+
+/*                    TAHMID                     */
+
+void arithmetic_operations(){
+
+
+}
+
+void logarithms(){
 
 
 }
 
 
+/*                     RUMI                      */
+void arithmetic_operations(){
+
+}
+
+void trigonometry(){
+
+}
+
+void conversion(){
+
+}
+
+/*                     ARIF                      */
+//===================================================
+
+/*         main programs     */
+
+void factorials(){
+
+    printf("\n\t>>>this is factorials program\n");
+
+    while(rerun_program){
+
+        printf("\n\t press 0 to exit and 1 to continue\n");
+        printf("\n\t choose your operation: ");
+
+        scanf("%d", &choice);
+
+        if(choice == 1){
+            int n;
+            printf("Enter n: ");          // Prompt the user to enter a value for n.
+            scanf("%d", &n);             // Read the value of n from the user.
+            long long f = factorial(n); // Call the factorial function and store the result in f.
+            if (f == -1) printf("Error: n must be >= 0\n");     // If the result is -1, print an error message indicating that n must be non-negative.
+            else printf("%d! = %lld\n", n, f);                 // Otherwise, print the calculated factorial value.  
+
+        }
+
+        else if(choice == 0){
+            printf("\n\t exiting to main menu\n\n");
+            break;
+        }
+
+        
+    }
+}
+
+void permutations(){
+
+    printf("\n\t>>>this is permutations program\n");
+
+    while(rerun_program){
+
+        printf("\n\t press 0 to exit and 1 to continue\n");
+        printf("\n\t choose your operation: ");
+
+        scanf("%d", &choice);
+
+        int n, r;
+
+        if(choice == 1){
+            printf("Enter n and r: ");          // Prompt the user to enter values for n and r.
+            scanf("%d %d", &n, &r);            // Read the values of n and r from the user.
+            long long p = permutation(n, r);  // Call the permutation function and store the result in p.
+            if (p == -1) printf("Error: invalid n or r\n");    // If the result is -1, print an error message indicating that n or r is invalid (e.g., r > n or negative values).  
+            else printf("P(%d, %d) = %lld\n", n, r, p);       // Otherwise, print the calculated permutation value.
+            
+        }
+
+        else if(choice == 0){
+            printf("\n\t exiting to main menu\n\n");
+            break;
+        }
+
+        
+    }
+
+}
+
+void combinations(){
+
+    printf("\n\t>>>this is combinations program\n");
+
+    while(rerun_program){
+
+        printf("\n\t press 0 to exit and 1 to continue\n");
+        printf("\n\t choose your operation: ");
+
+        scanf("%d", &choice);
+
+        int n, r;
+
+        if(choice == 1){
+            printf("Enter n and r: ");               // Prompt the user to enter values for n and r.
+            scanf("%d %d", &n, &r);                 // Read the values of n and r from the user.
+            long long c = combination(n, r);       // ---Call the combination function and store the result in c.
+            if (c == -1) printf("Error: invalid n or r\n"); // If the result is -1, print an error message indicating that n or r is invalid (e.g., r > n or negative values).
+            else printf("C(%d, %d) = %lld\n", n, r, c);    // Otherwise, print the calculated combination value.       
+        }
+
+        else if(choice == 0){
+            printf("\n\t exiting to main menu\n\n");
+            break;
+        }
+
+        
+    }
+
+}
+
+void polynomial_roots_solving(){
+
+    printf("\n\t>>>this is polynomial roots solving program\n");
+
+    while(rerun_program){
+
+        printf("\n\t press 0 to exit and 1 to continue\n");
+        printf("\n\t choose your operation: ");
+
+        scanf("%d", &choice);
+
+        if(choice == 1){
+            int a, b, c;
+            printf("Enter coefficients a, b, c for ax^2 + bx + c = 0:\n");// Prompt the user to enter coefficients for the quadratic equation.
+            printf("Enter a: ");// Prompt the user to enter the coefficient a.
+            scanf("%d", &a);   // Read the value of a from the user.
+            printf("Enter b: ");// Prompt the user to enter the coefficient b.
+            scanf("%d", &b);   // Read the value of b from the user.
+            printf("Enter c: ");// Prompt the user to enter the coefficient c.
+            scanf("%d", &c);   // Read the value of c from the user.
+            polynomiyal_roots(a, b, c); // Call the function to calculate and display the roots of the quadratic equation.        
+
+        }
+
+        else if(choice == 0){
+            printf("\n\t exiting to main menu\n\n");
+            break;
+        }
+
+        
+    }
+
+    
+}
 
 
-//======================================================================================
-/* |||||||||      factorials        ||||||||||| */
+/*        periferal functions      */
+
+/* |||||||||       factorial         ||||||||||| */
+long long factorial(int n) // ----------------Function to calculate factorial. We use long long to handle larger results.
+ {
+    if (n < 0) return -1;  // ---------------- it returns -1 for negative numbers as factorial is not defined for them.
+    if (n == 0 || n == 1) return 1;// --------Factorial of 0 and 1 is 1.
+    long long result = 1;// ------------------Initialize result to 1.
+    for (int i = 2; i <= n; i++)// -----------the loop starts from 2 to n, multiplying each integer to the result.
+        result *= i;// -----------------------Multiply result by i for each iteration.
+    return result;// -------------------------Return the final factorial value.
+}
+
+/* |||||||||       permutation      ||||||||||| */
+long long permutation(int n, int r) {       //---Function to calculate permutation. We use long long to handle larger results.
+    if (r > n || n < 0 || r < 0) return -1; //---It will return -1: Permutation is not defined for r > n or negative values.
+    return factorial(n) / factorial(n - r); //---Calculate permutation using the formula P(n, r) = n! / (n-r)!
+}
+
+/* |||||||||       combination      ||||||||||| */
+long long combination(int n, int r) { // ---------Function to calculate combination. We use long long to handle larger results.
+    if (r > n || n < 0 || r < 0) return -1; // ---It will return -1: Combination is not defined for r > n or negative values.
+    return factorial(n) / (factorial(r) * factorial(n - r)); // Calculate combination using the formula C(n, r) = n! / (r! * (n-r)!)
+}
 
 
-//======================================================================================
-/* |||||||||     permutations       ||||||||||| */
-
-
-//======================================================================================
-/* |||||||||     combinations       ||||||||||| */
-
-
-//======================================================================================
-/* |||||||||  polynomial root solving ||||||||| */
-
-
-
-
+/*     ---------------END OF FILE-----------------------    */
 
 
 
