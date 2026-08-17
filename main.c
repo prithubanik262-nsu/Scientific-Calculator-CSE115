@@ -120,16 +120,14 @@ void unit_conversion();
 /*         periferal programs   */
 
 /*  |||||||||   trigonometry   ||||||||| */
-double factorial(int number);
-double calculate_power(double base, int exponent);
-/*   -- normal -- */
-double calculate_sin(double angle);
-double calculate_cos(double angle);
-double calculate_tan(double angle);
-double calculate_sec(double angle);
-double calculate_cosec(double angle);
-double calculate_cot(double angle);
-/*   -- inverse -- */ 
+/*  ---- normal ----    */
+double calculate_sin(double degree);
+double calculate_cos(double degree);
+double calculate_tan(double degree);
+double calculate_sec(double degree);
+double calculate_cosec(double degree);
+double calculate_cot(double degree);
+/*    ---- inverse ----    */
 double calculate_arcsin(double value);
 double calculate_arccos(double value);
 double calculate_arctan(double value);
@@ -1996,69 +1994,46 @@ void unit_conversion(){
 /*        periferal functions      */
 
 /*  |||||||||   trigonometry   ||||||||| */
-
-double calculate_power(double base, int exponent) {
-    double answer = 1.0;
-    int i;
-    for (i = 0; i < exponent; i++) {
-        answer = answer * base;
-    }
-    return answer;
+double calculate_sin(double degree) {
+    double radian = degree * (PI / 180.0);
+    return sin(radian);
 }
 
-double calculate_sin(double angle) {
-    double radian = angle * (PI / 180.0);
-    double part1 = radian;
-    double part2 = calculate_power(radian, 3) / factorial(3);
-    double part3 = calculate_power(radian, 5) / factorial(5);
-    double part4 = calculate_power(radian, 7) / factorial(7);
-    return part1 - part2 + part3 - part4;
+double calculate_cos(double degree) {
+    double radian = degree * (PI / 180.0);
+    return cos(radian);
 }
 
-double calculate_cos(double angle) {
-    double radian = angle * (PI / 180.0);
-    double part1 = 1.0;
-    double part2 = calculate_power(radian, 2) / factorial(2);
-    double part3 = calculate_power(radian, 4) / factorial(4);
-    double part4 = calculate_power(radian, 6) / factorial(6);
-    return part1 - part2 + part3 - part4;
+double calculate_tan(double degree) {
+    double radian = degree * (PI / 180.0);
+    return tan(radian);
 }
 
-double calculate_tan(double angle) {
-    return calculate_sin(angle) / calculate_cos(angle);
+double calculate_sec(double degree) {
+    return 1.0 / calculate_cos(degree);
 }
 
-double calculate_sec(double angle) {
-    return 1.0 / calculate_cos(angle);
+double calculate_cosec(double degree) {
+    return 1.0 / calculate_sin(degree);
 }
 
-double calculate_cosec(double angle) {
-    return 1.0 / calculate_sin(angle);
-}
-
-double calculate_cot(double angle) {
-    return 1.0 / calculate_tan(angle);
+double calculate_cot(double degree) {
+    return 1.0 / calculate_tan(degree);
 }
 
 double calculate_arcsin(double value) {
-    double part1 = value;
-    double part2 = calculate_power(value, 3) / 6.0;
-    double part3 = (3.0 * calculate_power(value, 5)) / 40.0;
-    double radian_answer = part1 + part2 + part3;
-    return radian_answer * (180.0 / PI);
+    double radian = asin(value);
+    return radian * (180.0 / PI);
 }
 
 double calculate_arccos(double value) {
-    return 90.0 - calculate_arcsin(value);
+    double radian = acos(value);
+    return radian * (180.0 / PI);
 }
 
 double calculate_arctan(double value) {
-    double part1 = value;
-    double part2 = calculate_power(value, 3) / 3.0;
-    double part3 = calculate_power(value, 5) / 5.0;
-    double part4 = calculate_power(value, 7) / 7.0;
-    double radian_answer = part1 - part2 + part3 - part4;
-    return radian_answer * (180.0 / PI);
+    double radian = atan(value);
+    return radian * (180.0 / PI);
 }
 
 double calculate_arcsec(double value) {
@@ -2070,9 +2045,8 @@ double calculate_arccosec(double value) {
 }
 
 double calculate_arccot(double value) {
-    return 90.0 - calculate_arctan(value);
+    return calculate_arctan(1.0 / value);
 }
-
 
 /*  |||||||||   unit_conversion   ||||||||| */
 
