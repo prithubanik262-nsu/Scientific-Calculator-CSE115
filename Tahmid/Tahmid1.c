@@ -5,6 +5,7 @@
 void main_menu();
 
 // These are function prototypes.
+
 void log_menu();
 void natural_log();
 void common_log();
@@ -455,3 +456,4 @@ void hexadecimal_to_decimal()
 
     printf("%s in decimal = %d\n", hex, decimal);
 }
+

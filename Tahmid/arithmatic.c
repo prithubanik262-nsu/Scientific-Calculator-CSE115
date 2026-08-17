@@ -150,3 +150,6 @@ void modulus()
         printf("\nThe result is:%lf %% %lf =%.2lf, number1, number2, fmod(number1, number2)");
     }
 }
+
+
+

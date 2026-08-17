@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
 //========================================================================
 /*   constants and user defined data types   */
@@ -15,7 +17,7 @@ typedef double vector[max_vector_size];
 //creating a constant for PI
 const double PI = 3.14159265;
 
-/*       constants for conversion(RUMI)    */
+/*       constants for unit_conversion(RUMI)    */
 //distance
 const double KM_TO_MILE = 0.621371;
 const double METER_TO_FEET = 3.28084;
@@ -77,18 +79,43 @@ void vector_cross();
 
 
 /*                         TAHMID                            */
+//============================================================
 
 /*       main programs prototypes        */
 void logarithms();
 void arithmetic_operations();
+void base_conversion();
 
+/*    periferal funcitons      */
+
+/*  |||||||||      logarithms       ||||||||| */
+void log_menu();
+void natural_log();
+void common_log();
+void log_base_n();
+
+/*  |||||||    arithmetic operations  ||||||| */
+void addition();
+void subtraction();
+void multiplication();
+void division();
+void modulus();
+
+/*  |||||||||   base unit_conversion  ||||||||| */
+
+void conversion_menu();
+void decimal_to_binary();
+void binary_to_decimal();
+void decimal_to_hexadecimal();
+void hexadecimal_to_decimal();
 
 
 /*                          RUMI                             */
+//============================================================
 
 /*       main programs prototypes        */
 void trigonometry();
-void conversion();
+void unit_conversion();
 
 /*         periferal programs   */
 
@@ -111,7 +138,7 @@ double calculate_arccosec(double value);
 double calculate_arccot(double value);
 
 
-/*  |||||||||   conversion   ||||||||| */
+/*  |||||||||   unit_conversion   ||||||||| */
 //distance
 double kilometer_to_mile(double km);
 double mile_to_kilometer(double mile);
@@ -145,7 +172,7 @@ double kelvin_to_fahrenheit(double k);
 
 
 /*                          ARIF                             */
-
+//============================================================
 
 /*    main programs prototypes    */
 void factorials();
@@ -226,7 +253,11 @@ int main(){
                     break;
 
                 case 11:
-                    conversion();
+                    unit_conversion();
+                    break;
+
+                case 12:
+                    base_conversion();
                     break;
 
 
@@ -471,11 +502,6 @@ void vectors(){
 
     printf("\n\t>>>this vector program\n");
     printf("\n\n");
-
-    int rerun = 1; /*this is variable to control whether the program will rerun or not
-                       A if-statement has been used in the while-loop to update this variable and break out of this loop
-                       this helps the user to stay at the current program without restarting the calculator after a task is finished
-                      */
 
     while(rerun_program){
 
@@ -1169,16 +1195,541 @@ void vector_cross(){
 
 
 /*                    TAHMID                     */
+//================================================
 
+/*                main programs          */
 void arithmetic_operations(){
+    printf("\n\t>>>this arithmatic operations program\n");
+    printf("\n\n");
+
+    while(rerun_program){
+
+        //asking for operations
+
+        printf("\n\t press 0 to exit\n");
+        printf("\n\t available operators......\n\n");
+        printf("\t 1.  addition \n");
+        printf("\t 2.  substraction \n");
+        printf("\t 3.  multiplication \n");
+        printf("\t 4.  division \n");
+        printf("\t 5.  modulus \n");
+
+        printf("\n\t choose your operation: ");
+
+        scanf("%d", &choice);
+
+        if(choice == 0){
+            printf("\n\t exiting to main menu\n\n");
+            break;
+        }
+
+
+        printf("\n");
+
+
+        switch(choice){
+            case 1:
+                addition();
+                break;
+
+            case 2:
+                subtraction();
+                break;
+
+            case 3:
+                multiplication();
+                break;
+
+            case 4:
+                division();
+                break;
+
+            case 5:
+                modulus();
+                break;
+
+            default:
+                printf("\n\tINVALID INPUT");
+                break;
+        }
+    }
 
 
 }
 
 void logarithms(){
 
+    printf("\n\t>>>this logarithms program\n");
+    printf("\n\n");
+
+    while(rerun_program){
+
+        //asking for operations
+
+        printf("\n\t press 0 to exit\n");
+        printf("\n\t available operators......\n\n");
+        printf("\t 1. Natural log (ln) \n");
+        printf("\t 2. Common log \n");
+        printf("\t 3. Log with any chosen base number \n");
+        
+        printf("\n\t choose your operation: ");
+
+        scanf("%d", &choice);
+
+        if(choice == 0){
+            printf("\n\t exiting to main menu\n\n");
+            break;
+        }
+
+
+        printf("\n");
+
+
+        switch(choice){
+            case 1:
+                natural_log();
+                break;
+
+            case 2:
+                common_log();
+                break;
+
+            case 3:
+                log_base_n();
+                break;
+
+            default:
+                printf("\n\tINVALID INPUT");
+                break;
+        }
+    }
+}
+
+void base_conversion(){
+    printf("\n\t>>>this vector program\n");
+    printf("\n\n");
+
+    while(rerun_program){
+
+        //asking for operations
+
+        printf("\n\t press 0 to exit\n");
+        printf("\n\t available operators......\n\n");
+        printf("\t 1. Vector addition \n");
+        printf("\t 2. Vector substraction \n");
+        printf("\t 3. Vector dot multiplication \n");
+        printf("\t 4. Vector cross multiplication \n");
+
+        printf("\n\t choose your operation: ");
+
+        scanf("%d", &choice);
+
+        if(choice == 0){
+            printf("\n\t exiting to main menu\n\n");
+            break;
+        }
+
+
+        printf("\n");
+
+
+        switch(choice){
+            case 1:
+                vector_addition();
+                break;
+
+            case 2:
+                vector_subtraction();
+                break;
+
+            case 3:
+                vector_dot();
+                break;
+
+            case 4:
+                vector_cross();
+                break;
+
+            default:
+                printf("\n\tINVALID INPUT");
+                break;
+        }
+    }
 
 }
+
+/*      periferal functions               */
+
+/*    ---- arithmatic operation ----*/
+
+// This is the addition module
+
+void addition()
+{
+    double number1, number2;
+
+    printf("Enter the first number: ");
+    scanf("%lf", &number1);
+
+    printf("Enter the second number: ");
+    scanf("%lf", &number2);
+
+    printf("The result is: %lf + %lf = %.2lf\n", number1, number2, number1 + number2);
+}
+
+// This is the subtraction module
+
+void subtraction()
+{
+    double number1, number2;
+
+    printf("Enter the first number: ");
+    scanf("%lf", &number1);
+
+    printf("Enter the second number: ");
+    scanf("%lf", &number2);
+
+    printf("The result is: %lf - %lf = %.2lf\n", number1, number2, number1 - number2);
+}
+
+// This is the multiplication module
+
+void multiplication()
+{
+    double number1, number2;
+
+    printf("Enter the first number: ");
+    scanf("%lf", &number1);
+
+    printf("Enter the second number: ");
+    scanf("%lf", &number2);
+
+    printf("The result is: %lf * %lf = %.2lf\n", number1, number2, number1 * number2);
+}
+
+// This is the division module
+
+void division()
+{
+    double number1, number2;
+
+    printf("Enter the dividend: ");
+    scanf("%lf", &number1);
+
+    printf("Enter the divisor: ");
+    scanf("%lf", &number2);
+
+    if (number2 == 0)
+    {
+        printf("Invalid.Dividing by zero is undefined");
+    }
+    else
+    {
+        printf("The result is: %lf / %lf = %.2lf", number1, number2, number1 / number2);
+    }
+}
+
+// This is the modulus module
+
+void modulus()
+{
+
+    double number1, number2;
+
+    printf("Enter the first integer: ");
+    scanf("%lf", &number1);
+
+    printf("Enter the second integer: ");
+    scanf("%lf", &number2);
+
+    if (number2 == 0)
+    {
+        printf("Invalid.Cannot divide by 0.");
+    }
+    else
+    { // fmod is a function is [math.h] which does the same thing as a%b
+
+        printf("\nThe result is:%lf %% %lf =%.2lf, number1, number2, fmod(number1, number2)");
+    }
+}
+
+
+
+/* ---- logarithms  ------*/
+// These codes are for Natural Log.
+void natural_log()
+{
+    double num;
+
+    printf("\nEnter number: ");
+    if (scanf("%lf", &num) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
+
+    if (num <= 0)
+    {
+        printf("Invalid number. Input a positive number.\n");
+    }
+    else
+    {
+        printf("ln(%.2lf) = %.4lf\n", num, log(num));
+    }
+}
+
+// These codes are for common log.
+void common_log()
+{
+    double num;
+
+    printf("\nEnter number: ");
+    if (scanf("%lf", &num) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
+
+    if (num <= 0)
+    {
+        printf("Invalid number. Input a positive number.\n");
+    }
+    else
+    {
+        printf("log10(%.2lf) = %.4lf\n", num, log10(num));
+    }
+}
+
+// These codes are for log with any base.
+void log_base_n()
+{
+    double num, base;
+
+    printf("Enter number: ");
+    if (scanf("%lf", &num) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
+
+    printf("Now enter the base: ");
+    if (scanf("%lf", &base) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
+
+    if (num <= 0)
+    {
+        printf("Error! Number must be positive.\n");
+    }
+    else if (base <= 0 || base == 1)
+    {
+        printf("Error! Base must be positive and not equal to 1.\n");
+    }
+    else
+    {
+        printf("log base %.2lf of %.2lf = %.4lf\n", base, num, log(num) / log(base));
+    }
+}
+
+/*  ----- base conversion -------*/
+
+void decimal_to_binary()
+{
+    int num, temp, i, j;
+    int digits[40]; // an int never needs more than 32 binary digits, so this is enough
+
+    printf("\nEnter a decimal number: ");
+    if (scanf("%d", &num) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
+
+    if (num < 0)
+    {
+        printf("Error! Enter a positive number.\n");
+        return;
+    }
+
+    if (num == 0) // the loop below never runs for 0, so 0 is done separately
+    {
+        printf("0 in binary = 0\n");
+        return;
+    }
+
+    temp = num; // num is kept safe so it can be printed at the end
+    i = 0;
+
+    while (temp > 0)
+    {
+        digits[i] = temp % 2; // the remainder is either 0 or 1
+        temp = temp / 2;
+        i++;
+    }
+
+    printf("%d in binary = ", num);
+
+    for (j = i - 1; j >= 0; j--) // printing from the last digit to the first
+    {
+        printf("%d", digits[j]);
+    }
+
+    printf("\n");
+}
+
+/*
+ These codes are for binary to decimal.
+ the binary number is taken as text, not as a number.
+ then every digit is added to the answer like this: answer = answer * 2 + digit.
+*/
+
+void binary_to_decimal()
+{
+    char binary[50];
+    int decimal = 0;
+    int i, length;
+
+    printf("\nEnter a binary number: ");
+    if (scanf("%s", binary) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
+
+    length = strlen(binary); // strlen counts how many characters were typed
+
+    if (length > 31)
+    {
+        printf("Error! The number is too big.\n");
+        return;
+    }
+
+    for (i = 0; i < length; i++)
+    {
+        if (binary[i] != '0' && binary[i] != '1')
+        {
+            printf("Error! A binary number can only have 0 and 1.\n");
+            return;
+        }
+
+        decimal = decimal * 2 + (binary[i] - '0'); // '0' is taken away to turn the character into a number
+    }
+
+    printf("%s in decimal = %d\n", binary, decimal);
+}
+
+// These codes are for decimal to hexadecimal.
+// same idea as binary, only the dividing is by 16.
+// the remainders 10 to 15 have no single digit, so they are shown as A B C D E F.
+void decimal_to_hexadecimal()
+{
+    int num, temp, i, j, remainder;
+    char digits[20];
+
+    printf("\nEnter a decimal number: ");
+    if (scanf("%d", &num) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
+
+    if (num < 0)
+    {
+        printf("Error! Enter a positive number.\n");
+        return;
+    }
+
+    if (num == 0)
+    {
+        printf("0 in hexadecimal = 0\n");
+        return;
+    }
+
+    temp = num;
+    i = 0;
+
+    while (temp > 0)
+    {
+        remainder = temp % 16;
+
+        if (remainder < 10)
+        {
+            digits[i] = remainder + '0'; // 0 to 9 stay as the digits 0 to 9
+        }
+        else
+        {
+            digits[i] = remainder - 10 + 'A'; // 10 becomes A, 11 becomes B, and so on
+        }
+
+        temp = temp / 16;
+        i++;
+    }
+
+    printf("%d in hexadecimal = ", num);
+
+    for (j = i - 1; j >= 0; j--)
+    {
+        printf("%c", digits[j]);
+    }
+
+    printf("\n");
+}
+
+/*
+These codes are for hexadecimal to decimal.
+the hexadecimal number is taken as text because of the letters A to F.
+every character is turned into a number from 0 to 15,
+then it is added to the answer like this: answer = answer * 16 + digit.
+*/
+void hexadecimal_to_decimal()
+{
+    char hex[20];
+    int decimal = 0;
+    int i, length, value;
+
+    printf("\nEnter a hexadecimal number: ");
+    if (scanf("%s", hex) != 1)
+    {
+        printf("Invalid input.\n");
+        return;
+    }
+
+    length = strlen(hex);
+
+    if (length > 7)
+    {
+        printf("Error! The number is too big.\n");
+        return;
+    }
+
+    for (i = 0; i < length; i++)
+    {
+        if (hex[i] >= '0' && hex[i] <= '9')
+        {
+            value = hex[i] - '0';
+        }
+        else if (hex[i] >= 'A' && hex[i] <= 'F')
+        {
+            value = hex[i] - 'A' + 10;
+        }
+        else if (hex[i] >= 'a' && hex[i] <= 'f')
+        {
+            value = hex[i] - 'a' + 10; // small letters are accepted too
+        }
+        else
+        {
+            printf("Error! A hexadecimal number can only have 0 to 9 and A to F.\n");
+            return;
+        }
+
+        decimal = decimal * 16 + value;
+    }
+
+    printf("%s in decimal = %d\n", hex, decimal);
+}
+
 
 
 /*                     RUMI                      */
@@ -1293,9 +1844,9 @@ void trigonometry(){
 
 }
 
-void conversion(){
+void unit_conversion(){
 
-    printf("\n\t>>>this is conversion program\n");
+    printf("\n\t>>>this is unit_conversion program\n");
 
 
     double input_value, final_result;
@@ -1441,6 +1992,7 @@ void conversion(){
 }
 
 
+
 /*        periferal functions      */
 
 /*  |||||||||   trigonometry   ||||||||| */
@@ -1522,7 +2074,7 @@ double calculate_arccot(double value) {
 }
 
 
-/*  |||||||||   conversion   ||||||||| */
+/*  |||||||||   unit_conversion   ||||||||| */
 
 
 double kilometer_to_mile(double km) {
