@@ -12,6 +12,24 @@
 typedef double matrix[max_matrix_size][max_matrix_size];
 //creating a new vector data type
 typedef double vector[max_vector_size];
+//creating a constant for PI
+const double PI = 3.14159265;
+
+/*       constants for conversion(RUMI)    */
+//distance
+const double KM_TO_MILE = 0.621371;
+const double METER_TO_FEET = 3.28084;
+const double CM_TO_INCH = 0.393701;
+const double METER_TO_YARD = 1.09361;
+const double KM_TO_NAUTICAL_MILE = 0.539957;
+
+//weight
+const double KG_TO_POUND = 2.20462;
+const double GRAM_TO_OUNCE = 0.035274;
+
+//liquid
+const double LITER_TO_GALLON = 0.264172;
+
 
 
 //==============================================================================
@@ -25,7 +43,7 @@ void programs_names();
 /*                         PRITHU                            */
 //=============================================================
 
-/*    main programs protypes    */
+/*    main programs prototypes    */
 void power_root();
 void matrices();
 void vectors();
@@ -59,19 +77,77 @@ void vector_cross();
 
 
 /*                         TAHMID                            */
+
+/*       main programs prototypes        */
 void logarithms();
 void arithmetic_operations();
 
 
 
 /*                          RUMI                             */
+
+/*       main programs prototypes        */
 void trigonometry();
 void conversion();
+
+/*         periferal programs   */
+
+/*  |||||||||   trigonometry   ||||||||| */
+double factorial(int number);
+double calculate_power(double base, int exponent);
+/*   -- normal -- */
+double calculate_sin(double angle);
+double calculate_cos(double angle);
+double calculate_tan(double angle);
+double calculate_sec(double angle);
+double calculate_cosec(double angle);
+double calculate_cot(double angle);
+/*   -- inverse -- */ 
+double calculate_arcsin(double value);
+double calculate_arccos(double value);
+double calculate_arctan(double value);
+double calculate_arcsec(double value);
+double calculate_arccosec(double value);
+double calculate_arccot(double value);
+
+
+/*  |||||||||   conversion   ||||||||| */
+//distance
+double kilometer_to_mile(double km);
+double mile_to_kilometer(double mile);
+double meter_to_feet(double m);
+double feet_to_meter(double ft);
+double centimeter_to_inch(double cm);
+double inch_to_centimeter(double inch);
+double meter_to_yard(double m);
+double yard_to_meter(double yd);
+double kilometer_to_nautical_mile(double km);
+double nautical_mile_to_kilometer(double nm);
+
+//distance
+double kilogram_to_pound(double kg);
+double pound_to_kilogram(double lb);
+double gram_to_ounce(double g);
+double ounce_to_gram(double oz);
+
+//liquid
+double liter_to_gallon(double l);
+double gallon_to_liter(double gal);
+
+//temparature
+double celsius_to_fahrenheit(double c);
+double fahrenheit_to_celsius(double f);
+double celsius_to_kelvin(double c);
+double kelvin_to_celsius(double k);
+double fahrenheit_to_kelvin(double f);
+double kelvin_to_fahrenheit(double k);
+
+
 
 /*                          ARIF                             */
 
 
-/*    main programs protypes    */
+/*    main programs prototypes    */
 void factorials();
 void permutations();
 void combinations();
@@ -80,14 +156,20 @@ void polynomial_roots_solving();
 /*   peripheral functions prototypes   */
 
 /* |||||||||       factorials         ||||||||||| */
-long long factorial(int n);
+double factorial(int n);
+/* |||||||||       permutations      ||||||||||| */
+long long permutation(int n, int r);
+/* |||||||||       combinations      |||||||||| */
+long long combination(int n, int r);
+/* |||||||||       polynomial roots  ||||||||||| */
+void polynomiyal_roots(int a, int b, int c);
 
 
 
 
 int main(){
 
-    printf("hello world\nthis is the scientific calculator project\n\n");
+    printf("hello world...\nthis is the scientific calculator project\n\n");
     Welcome_screen();
     int command;//taking the value for whether the calculator will continue running or just terminate
     int program_option;//this takes the value of option of a program to run
@@ -205,14 +287,15 @@ void programs_names(){
     printf("\t >>>  Choose your program: ");
 }
 
-
-/*                 function definations                  */
-
+// _________________________________________________________
+/*|                 function definations                    | */ 
+//|_________________________________________________________|
 
 /*                    PRITHU                     */
 //=================================================
 
 /*           main functions       */
+
 void power_root(){
 
     printf("\n\t>>> This is power-root program\n");
@@ -448,9 +531,6 @@ void vectors(){
 
 /* |||||||||       matrices         ||||||||||| */
 
- //  valid_dimension_to_multiply(), validate_matrix(), matrix_input() 
- //  and print_matrix() functions are the backbone for the rest of the functions of matrix
-
 //this function is used in multiply_matrix function to check if the matrices are multiplyable
 int valid_dimension_to_multiply(int col, int row){
 
@@ -516,8 +596,6 @@ void print_matrix(matrix mat, int rows, int cols, char matrix_name){
 }
 
 //now working on the core 5 functions of the matrix
-
-//addition between two functions
 void matrix_addition(){
     printf("\n\t This is matrix addition \n");
     printf("\t  Addition between two matrices \n");
@@ -1104,17 +1182,439 @@ void logarithms(){
 
 
 /*                     RUMI                      */
-void arithmetic_operations(){
+//================================================
 
-}
+/*        main programs         */
 
 void trigonometry(){
+
+    printf("\n\t>>>this is trigonometry program\n");
+
+    double input_value, final_result;
+
+    while(rerun_program){
+
+        //asking for operations
+
+        printf("\n\t press 0 to exit\n");
+        printf("\n\t available operations......\n\n");
+        printf("1. sin(x)\t2. arcsin(x)\n");
+        printf("3. cos(x)\t4. arccos(x)\n");
+        printf("5. tan(x)\t6. arctan(x)\n");
+        printf("7. sec(x)\t8. arcsec(x)\n");
+        printf("9. cosec(x)\t10. arccosec(x)\n");
+        printf("11. cot(x)\t12. arccot(x)\n");
+        printf("\n\t choose your operation: ");
+
+        scanf("%d", &choice);
+        
+        if(choice == 0){
+            printf("\n\t exiting to main menu\n\n");
+            break;
+        }
+
+
+        //taking input to operate
+        printf("Enter the value: ");
+        scanf("%lf", &input_value);
+
+        
+
+        printf("\n");
+
+        switch(choice){
+
+            case 1:
+            final_result = calculate_sin(input_value);
+            printf("sin(%.2lf) = %.4lf\n", input_value, final_result);
+            break;
+
+            case 2:
+                final_result = calculate_arcsin(input_value);
+                printf("arcsin(%.2lf) = %.4lf degrees\n", input_value, final_result);
+                break;
+
+            case 3:
+                final_result = calculate_cos(input_value);
+                printf("cos(%.2lf) = %.4lf\n", input_value, final_result);
+                break;
+
+            case 4:
+                final_result = calculate_arccos(input_value);
+                printf("arccos(%.2lf) = %.4lf degrees\n", input_value, final_result);
+                break;
+
+            case 5:
+                final_result = calculate_tan(input_value);
+                printf("tan(%.2lf) = %.4lf\n", input_value, final_result);
+                break;
+
+            case 6:
+                final_result = calculate_arctan(input_value);
+                printf("arctan(%.2lf) = %.4lf degrees\n", input_value, final_result);
+                break;
+
+            case 7:
+                final_result = calculate_sec(input_value);
+                printf("sec(%.2lf) = %.4lf\n", input_value, final_result);
+                break;
+
+            case 8:
+                final_result = calculate_arcsec(input_value);
+                printf("arcsec(%.2lf) = %.4lf degrees\n", input_value, final_result);
+                break;
+
+            case 9:
+                final_result = calculate_cosec(input_value);
+                printf("cosec(%.2lf) = %.4lf\n", input_value, final_result);
+                break;
+
+            case 10:
+                final_result = calculate_arccosec(input_value);
+                printf("arccosec(%.2lf) = %.4lf degrees\n", input_value, final_result);
+                break;
+
+            case 11:
+                final_result = calculate_cot(input_value);
+                printf("cot(%.2lf) = %.4lf\n", input_value, final_result);
+                break;
+
+            case 12:    
+                final_result = calculate_arccot(input_value);
+                printf("arccot(%.2lf) = %.4lf degrees\n", input_value, final_result);
+                break;
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+
+    printf("\n\n");
 
 }
 
 void conversion(){
 
+    printf("\n\t>>>this is conversion program\n");
+
+
+    double input_value, final_result;
+
+    
+    while(rerun_program){
+
+        //asking for operations
+
+        printf("\n\t press 0 to exit\n");
+        printf("\n\t available operations......\n\n");
+        printf("--- Distance Conversions ---\n\n");
+        printf("1. Km to Mile            2. Mile to Km\n");
+        printf("3. Meter to Feet         4. Feet to Meter\n");
+        printf("5. Cm to Inch            6. Inch to Cm\n");
+        printf("7. Meter to Yard         8. Yard to Meter\n");
+        printf("9. Km to Nautical Mile   10. Nautical Mile to Km\n");
+        printf("\n--- Weight Conversions ---\n\n");
+        printf("11. Kg to Pound          12. Pound to Kg\n");
+        printf("13. Gram to Ounce        14. Ounce to Gram\n");
+        printf("\n--- Volume Conversions ---\n\n");
+        printf("15. Liter to Gallon      16. Gallon to Liter\n");
+        printf("\n--- Temperature Conversions ---\n\n");
+        printf("17. Celsius to Fahrenheit 18. Fahrenheit to Celsius\n");
+        printf("19. Celsius to Kelvin    20. Kelvin to Celsius\n");
+        printf("21. Fahrenheit to Kelvin 22. Kelvin to Fahrenheit\n");
+        printf("\n\t choose your operation: ");
+
+        scanf("%d", &choice);
+        
+        if(choice == 0){
+            printf("\n\t exiting to main menu\n\n");
+            break;
+        }
+
+
+        //taking input to operate
+        printf("Enter the value: ");
+        scanf("%lf", &input_value);
+
+        
+
+        printf("\n");
+
+
+        switch (choice) {
+            case 1:
+                final_result = kilometer_to_mile(input_value);
+                printf("%.2lf km = %.4lf miles\n", input_value, final_result);
+                break;
+            case 2:
+                final_result = mile_to_kilometer(input_value);
+                printf("%.2lf miles = %.4lf km\n", input_value, final_result);
+                break;
+            case 3:
+                final_result = meter_to_feet(input_value);
+                printf("%.2lf meters = %.4lf feet\n", input_value, final_result);
+                break;
+            case 4:
+                final_result = feet_to_meter(input_value);
+                printf("%.2lf feet = %.4lf meters\n", input_value, final_result);
+                break;
+            case 5:
+                final_result = centimeter_to_inch(input_value);
+                printf("%.2lf cm = %.4lf inches\n", input_value, final_result);
+                break;
+            case 6:
+                final_result = inch_to_centimeter(input_value);
+                printf("%.2lf inches = %.4lf cm\n", input_value, final_result);
+                break;
+            case 7:
+                final_result = meter_to_yard(input_value);
+                printf("%.2lf meters = %.4lf yards\n", input_value, final_result);
+                break;
+            case 8:
+                final_result = yard_to_meter(input_value);
+                printf("%.2lf yards = %.4lf meters\n", input_value, final_result);
+                break;
+            case 9:
+                final_result = kilometer_to_nautical_mile(input_value);
+                printf("%.2lf km = %.4lf nautical miles\n", input_value, final_result);
+                break;
+            case 10:
+                final_result = nautical_mile_to_kilometer(input_value);
+                printf("%.2lf nautical miles = %.4lf km\n", input_value, final_result);
+                break;
+            case 11:
+                final_result = kilogram_to_pound(input_value);
+                printf("%.2lf kg = %.4lf lbs\n", input_value, final_result);
+                break;
+            case 12:
+                final_result = pound_to_kilogram(input_value);
+                printf("%.2lf lbs = %.4lf kg\n", input_value, final_result);
+                break;
+            case 13:
+                final_result = gram_to_ounce(input_value);
+                printf("%.2lf grams = %.4lf oz\n", input_value, final_result);
+                break;
+            case 14:
+                final_result = ounce_to_gram(input_value);
+                printf("%.2lf oz = %.4lf grams\n", input_value, final_result);
+                break;
+            case 15:
+                final_result = liter_to_gallon(input_value);
+                printf("%.2lf liters = %.4lf gallons\n", input_value, final_result);
+                break;
+            case 16:
+                final_result = gallon_to_liter(input_value);
+                printf("%.2lf gallons = %.4lf liters\n", input_value, final_result);
+                break;
+            case 17:
+                final_result = celsius_to_fahrenheit(input_value);
+                printf("%.2lf C = %.4lf F\n", input_value, final_result);
+                break;
+            case 18:
+                final_result = fahrenheit_to_celsius(input_value);
+                printf("%.2lf F = %.4lf C\n", input_value, final_result);
+                break;
+            case 19:
+                final_result = celsius_to_kelvin(input_value);
+                printf("%.2lf C = %.4lf K\n", input_value, final_result);
+                break;
+            case 20:
+                final_result = kelvin_to_celsius(input_value);
+                printf("%.2lf K = %.4lf C\n", input_value, final_result);
+                break;
+            case 21:
+                final_result = fahrenheit_to_kelvin(input_value);
+                printf("%.2lf F = %.4lf K\n", input_value, final_result);
+                break;
+            case 22:
+                final_result = kelvin_to_fahrenheit(input_value);
+                printf("%.2lf K = %.4lf F\n", input_value, final_result);
+                break;
+            default:
+                printf("Invalid choice!\n");
+        }
+
+    }
+
+    printf("\n\n");
+
 }
+
+
+/*        periferal functions      */
+
+/*  |||||||||   trigonometry   ||||||||| */
+
+double calculate_power(double base, int exponent) {
+    double answer = 1.0;
+    int i;
+    for (i = 0; i < exponent; i++) {
+        answer = answer * base;
+    }
+    return answer;
+}
+
+double calculate_sin(double angle) {
+    double radian = angle * (PI / 180.0);
+    double part1 = radian;
+    double part2 = calculate_power(radian, 3) / factorial(3);
+    double part3 = calculate_power(radian, 5) / factorial(5);
+    double part4 = calculate_power(radian, 7) / factorial(7);
+    return part1 - part2 + part3 - part4;
+}
+
+double calculate_cos(double angle) {
+    double radian = angle * (PI / 180.0);
+    double part1 = 1.0;
+    double part2 = calculate_power(radian, 2) / factorial(2);
+    double part3 = calculate_power(radian, 4) / factorial(4);
+    double part4 = calculate_power(radian, 6) / factorial(6);
+    return part1 - part2 + part3 - part4;
+}
+
+double calculate_tan(double angle) {
+    return calculate_sin(angle) / calculate_cos(angle);
+}
+
+double calculate_sec(double angle) {
+    return 1.0 / calculate_cos(angle);
+}
+
+double calculate_cosec(double angle) {
+    return 1.0 / calculate_sin(angle);
+}
+
+double calculate_cot(double angle) {
+    return 1.0 / calculate_tan(angle);
+}
+
+double calculate_arcsin(double value) {
+    double part1 = value;
+    double part2 = calculate_power(value, 3) / 6.0;
+    double part3 = (3.0 * calculate_power(value, 5)) / 40.0;
+    double radian_answer = part1 + part2 + part3;
+    return radian_answer * (180.0 / PI);
+}
+
+double calculate_arccos(double value) {
+    return 90.0 - calculate_arcsin(value);
+}
+
+double calculate_arctan(double value) {
+    double part1 = value;
+    double part2 = calculate_power(value, 3) / 3.0;
+    double part3 = calculate_power(value, 5) / 5.0;
+    double part4 = calculate_power(value, 7) / 7.0;
+    double radian_answer = part1 - part2 + part3 - part4;
+    return radian_answer * (180.0 / PI);
+}
+
+double calculate_arcsec(double value) {
+    return calculate_arccos(1.0 / value);
+}
+
+double calculate_arccosec(double value) {
+    return calculate_arcsin(1.0 / value);
+}
+
+double calculate_arccot(double value) {
+    return 90.0 - calculate_arctan(value);
+}
+
+
+/*  |||||||||   conversion   ||||||||| */
+
+
+double kilometer_to_mile(double km) {
+    return km * KM_TO_MILE;
+}
+
+double mile_to_kilometer(double mile) {
+    return mile / KM_TO_MILE;
+}
+
+double meter_to_feet(double m) {
+    return m * METER_TO_FEET;
+}
+
+double feet_to_meter(double ft) {
+    return ft / METER_TO_FEET;
+}
+
+double centimeter_to_inch(double cm) {
+    return cm * CM_TO_INCH;
+}
+
+double inch_to_centimeter(double inch) {
+    return inch / CM_TO_INCH;
+}
+
+double meter_to_yard(double m) {
+    return m * METER_TO_YARD;
+}
+
+double yard_to_meter(double yd) {
+    return yd / METER_TO_YARD;
+}
+
+double kilometer_to_nautical_mile(double km) {
+    return km * KM_TO_NAUTICAL_MILE;
+}
+
+double nautical_mile_to_kilometer(double nm) {
+    return nm / KM_TO_NAUTICAL_MILE;
+}
+
+double kilogram_to_pound(double kg) {
+    return kg * KG_TO_POUND;
+}
+
+double pound_to_kilogram(double lb) {
+    return lb / KG_TO_POUND;
+}
+
+double gram_to_ounce(double g) {
+    return g * GRAM_TO_OUNCE;
+}
+
+double ounce_to_gram(double oz) {
+    return oz / GRAM_TO_OUNCE;
+}
+
+double liter_to_gallon(double l) {
+    return l * LITER_TO_GALLON;
+}
+
+double gallon_to_liter(double gal) {
+    return gal / LITER_TO_GALLON;
+}
+
+double celsius_to_fahrenheit(double c) {
+    return (c * 9.0 / 5.0) + 32.0;
+}
+
+double fahrenheit_to_celsius(double f) {
+    return (f - 32.0) * 5.0 / 9.0;
+}
+
+double celsius_to_kelvin(double c) {
+    return c + 273.15;
+}
+
+double kelvin_to_celsius(double k) {
+    return k - 273.15;
+}
+
+double fahrenheit_to_kelvin(double f) {
+    double celsius = fahrenheit_to_celsius(f);
+    return celsius_to_kelvin(celsius);
+}
+
+double kelvin_to_fahrenheit(double k) {
+    double celsius = kelvin_to_celsius(k);
+    return celsius_to_fahrenheit(celsius);
+}
+
 
 /*                     ARIF                      */
 //===================================================
@@ -1136,9 +1636,9 @@ void factorials(){
             int n;
             printf("Enter n: ");          // Prompt the user to enter a value for n.
             scanf("%d", &n);             // Read the value of n from the user.
-            long long f = factorial(n); // Call the factorial function and store the result in f.
+            double f = factorial(n); // Call the factorial function and store the result in f.
             if (f == -1) printf("Error: n must be >= 0\n");     // If the result is -1, print an error message indicating that n must be non-negative.
-            else printf("%d! = %lld\n", n, f);                 // Otherwise, print the calculated factorial value.  
+            else printf("%d! = %lf\n", n, f);                 // Otherwise, print the calculated factorial value.  
 
         }
 
@@ -1253,11 +1753,11 @@ void polynomial_roots_solving(){
 /*        periferal functions      */
 
 /* |||||||||       factorial         ||||||||||| */
-long long factorial(int n) // ----------------Function to calculate factorial. We use long long to handle larger results.
+double factorial(int n) // ----------------Function to calculate factorial. We use long long to handle larger results.
  {
     if (n < 0) return -1;  // ---------------- it returns -1 for negative numbers as factorial is not defined for them.
     if (n == 0 || n == 1) return 1;// --------Factorial of 0 and 1 is 1.
-    long long result = 1;// ------------------Initialize result to 1.
+    double result = 1;// ------------------Initialize result to 1.
     for (int i = 2; i <= n; i++)// -----------the loop starts from 2 to n, multiplying each integer to the result.
         result *= i;// -----------------------Multiply result by i for each iteration.
     return result;// -------------------------Return the final factorial value.
@@ -1273,6 +1773,41 @@ long long permutation(int n, int r) {       //---Function to calculate permutati
 long long combination(int n, int r) { // ---------Function to calculate combination. We use long long to handle larger results.
     if (r > n || n < 0 || r < 0) return -1; // ---It will return -1: Combination is not defined for r > n or negative values.
     return factorial(n) / (factorial(r) * factorial(n - r)); // Calculate combination using the formula C(n, r) = n! / (r! * (n-r)!)
+}
+
+/* |||||||||       polynomial roots  ||||||||||*/
+void polynomiyal_roots(int a, int b, int c) { // Function to calculate and display the roots of a quadratic equation ax^2 + bx + c = 0.
+    if (a == 0) { // Check if 'a' is 0, which would make it not a quadratic equation.
+        printf("Error: 'a' cannot be 0 (not a quadratic equation)\n");
+        return ;
+                }
+ 
+    double discriminant = (b * b) - (4 * a * c);// Calculate the discriminant (b^2 - 4ac) to determine the nature of the roots.
+    
+    if (discriminant > 0) {
+        // Two real roots
+        double root1 = (-b + sqrt(discriminant)) / (2 * a);// Calculate the first root using the quadratic formula.
+        double root2 = (-b - sqrt(discriminant)) / (2 * a);// Calculate the second root using the quadratic formula.
+        printf("Two real roots:\n");
+        printf("Root 1: %.3f\n", root1);
+        printf("Root 2: %.3f\n", root2);
+    }
+    else if (discriminant == 0) {
+        // One real root
+        double root = -b / (2 * a);
+        printf("One real root:\n");
+        printf("Root: %.3f\n", root);
+    } else {
+        // Complex roots
+        double realPart = -b / (2 * a);// Calculate the real part of the complex roots.
+        double imaginaryPart = sqrt(-discriminant) / (2 * a);// Calculate the imaginary part of the complex roots.
+        printf("Complex roots:\n");// Print a message indicating that the roots are complex.
+        printf("Root 1: %.2f + %.2fi\n", realPart, imaginaryPart);
+        printf("Root 2: %.2f - %.2fi\n", realPart, imaginaryPart);
+    }
+
+
+
 }
 
 

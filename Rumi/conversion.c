@@ -1,16 +1,22 @@
 #include <stdio.h>
 
+/*     constants   */
+//distance
 const double KM_TO_MILE = 0.621371;
 const double METER_TO_FEET = 3.28084;
 const double CM_TO_INCH = 0.393701;
 const double METER_TO_YARD = 1.09361;
 const double KM_TO_NAUTICAL_MILE = 0.539957;
 
+//weight
 const double KG_TO_POUND = 2.20462;
 const double GRAM_TO_OUNCE = 0.035274;
 
+//liquid
 const double LITER_TO_GALLON = 0.264172;
 
+/*    function prototypes    */
+//distance
 double kilometer_to_mile(double km);
 double mile_to_kilometer(double mile);
 double meter_to_feet(double m);
@@ -22,14 +28,17 @@ double yard_to_meter(double yd);
 double kilometer_to_nautical_mile(double km);
 double nautical_mile_to_kilometer(double nm);
 
+//distance
 double kilogram_to_pound(double kg);
 double pound_to_kilogram(double lb);
 double gram_to_ounce(double g);
 double ounce_to_gram(double oz);
 
+//liquid
 double liter_to_gallon(double l);
 double gallon_to_liter(double gal);
 
+//temparature
 double celsius_to_fahrenheit(double c);
 double fahrenheit_to_celsius(double f);
 double celsius_to_kelvin(double c);
@@ -236,19 +245,19 @@ double kelvin_to_fahrenheit(double k) {
 }
 
 void display_menu() {
-    printf("=== Multi-Unit Converter ===\n");
-    printf("--- Distance Conversions ---\n");
+    printf("=== Multi-Unit Converter ===\n\n");
+    printf("--- Distance Conversions ---\n\n");
     printf("1. Km to Mile            2. Mile to Km\n");
     printf("3. Meter to Feet         4. Feet to Meter\n");
     printf("5. Cm to Inch            6. Inch to Cm\n");
     printf("7. Meter to Yard         8. Yard to Meter\n");
     printf("9. Km to Nautical Mile   10. Nautical Mile to Km\n");
-    printf("--- Weight Conversions ---\n");
+    printf("\n--- Weight Conversions ---\n\n");
     printf("11. Kg to Pound          12. Pound to Kg\n");
     printf("13. Gram to Ounce        14. Ounce to Gram\n");
-    printf("--- Volume Conversions ---\n");
+    printf("\n--- Volume Conversions ---\n\n");
     printf("15. Liter to Gallon      16. Gallon to Liter\n");
-    printf("--- Temperature Conversions ---\n");
+    printf("\n--- Temperature Conversions ---\n\n");
     printf("17. Celsius to Fahrenheit 18. Fahrenheit to Celsius\n");
     printf("19. Celsius to Kelvin    20. Kelvin to Celsius\n");
     printf("21. Fahrenheit to Kelvin 22. Kelvin to Fahrenheit\n");
