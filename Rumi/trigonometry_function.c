@@ -1,0 +1,184 @@
+#include <stdio.h>
+
+const double PI = 3.14159265;
+
+double calculate_factorial(int number);
+double calculate_power(double base, int exponent);
+
+double calculate_sin(double angle);
+double calculate_cos(double angle);
+double calculate_tan(double angle);
+double calculate_sec(double angle);
+double calculate_cosec(double angle);
+double calculate_cot(double angle);
+
+double calculate_arcsin(double value);
+double calculate_arccos(double value);
+double calculate_arctan(double value);
+double calculate_arcsec(double value);
+double calculate_arccosec(double value);
+double calculate_arccot(double value);
+
+void display_menu();
+
+int main() {
+    int user_choice;
+    double input_value, final_result;
+
+    display_menu();
+    scanf("%d", &user_choice);
+
+    printf("Enter the value: ");
+    scanf("%lf", &input_value);
+
+    switch (user_choice) {
+        case 1:
+            final_result = calculate_sin(input_value);
+            printf("sin(%.2lf) = %.4lf\n", input_value, final_result);
+            break;
+        case 2:
+            final_result = calculate_arcsin(input_value);
+            printf("arcsin(%.2lf) = %.4lf degrees\n", input_value, final_result);
+            break;
+        case 3:
+            final_result = calculate_cos(input_value);
+            printf("cos(%.2lf) = %.4lf\n", input_value, final_result);
+            break;
+        case 4:
+            final_result = calculate_arccos(input_value);
+            printf("arccos(%.2lf) = %.4lf degrees\n", input_value, final_result);
+            break;
+        case 5:
+            final_result = calculate_tan(input_value);
+            printf("tan(%.2lf) = %.4lf\n", input_value, final_result);
+            break;
+        case 6:
+            final_result = calculate_arctan(input_value);
+            printf("arctan(%.2lf) = %.4lf degrees\n", input_value, final_result);
+            break;
+        case 7:
+            final_result = calculate_sec(input_value);
+            printf("sec(%.2lf) = %.4lf\n", input_value, final_result);
+            break;
+        case 8:
+            final_result = calculate_arcsec(input_value);
+            printf("arcsec(%.2lf) = %.4lf degrees\n", input_value, final_result);
+            break;
+        case 9:
+            final_result = calculate_cosec(input_value);
+            printf("cosec(%.2lf) = %.4lf\n", input_value, final_result);
+            break;
+        case 10:
+            final_result = calculate_arccosec(input_value);
+            printf("arccosec(%.2lf) = %.4lf degrees\n", input_value, final_result);
+            break;
+        case 11:
+            final_result = calculate_cot(input_value);
+            printf("cot(%.2lf) = %.4lf\n", input_value, final_result);
+            break;
+        case 12:
+            final_result = calculate_arccot(input_value);
+            printf("arccot(%.2lf) = %.4lf degrees\n", input_value, final_result);
+            break;
+        default:
+            printf("Invalid choice!\n");
+    }
+
+    return 0;
+}
+
+double calculate_power(double base, int exponent) {
+    double answer = 1.0;
+    int i;
+    for (i = 0; i < exponent; i++) {
+        answer = answer * base;
+    }
+    return answer;
+}
+
+double calculate_factorial(int number) {
+    double answer = 1.0;
+    int i;
+    for (i = 1; i <= number; i++) {
+        answer = answer * i;
+    }
+    return answer;
+}
+
+double calculate_sin(double angle) {
+    double radian = angle * (PI / 180.0);
+    double part1 = radian;
+    double part2 = calculate_power(radian, 3) / calculate_factorial(3);
+    double part3 = calculate_power(radian, 5) / calculate_factorial(5);
+    double part4 = calculate_power(radian, 7) / calculate_factorial(7);
+    return part1 - part2 + part3 - part4;
+}
+
+double calculate_cos(double angle) {
+    double radian = angle * (PI / 180.0);
+    double part1 = 1.0;
+    double part2 = calculate_power(radian, 2) / calculate_factorial(2);
+    double part3 = calculate_power(radian, 4) / calculate_factorial(4);
+    double part4 = calculate_power(radian, 6) / calculate_factorial(6);
+    return part1 - part2 + part3 - part4;
+}
+
+double calculate_tan(double angle) {
+    return calculate_sin(angle) / calculate_cos(angle);
+}
+
+double calculate_sec(double angle) {
+    return 1.0 / calculate_cos(angle);
+}
+
+double calculate_cosec(double angle) {
+    return 1.0 / calculate_sin(angle);
+}
+
+double calculate_cot(double angle) {
+    return 1.0 / calculate_tan(angle);
+}
+
+double calculate_arcsin(double value) {
+    double part1 = value;
+    double part2 = calculate_power(value, 3) / 6.0;
+    double part3 = (3.0 * calculate_power(value, 5)) / 40.0;
+    double radian_answer = part1 + part2 + part3;
+    return radian_answer * (180.0 / PI);
+}
+
+double calculate_arccos(double value) {
+    return 90.0 - calculate_arcsin(value);
+}
+
+double calculate_arctan(double value) {
+    double part1 = value;
+    double part2 = calculate_power(value, 3) / 3.0;
+    double part3 = calculate_power(value, 5) / 5.0;
+    double part4 = calculate_power(value, 7) / 7.0;
+    double radian_answer = part1 - part2 + part3 - part4;
+    return radian_answer * (180.0 / PI);
+}
+
+double calculate_arcsec(double value) {
+    return calculate_arccos(1.0 / value);
+}
+
+double calculate_arccosec(double value) {
+    return calculate_arcsin(1.0 / value);
+}
+
+double calculate_arccot(double value) {
+    return 90.0 - calculate_arctan(value);
+}
+
+void display_menu() {
+    printf("=== Trigonometric Calculator ===\n");
+    printf("1. sin(x)\t2. arcsin(x)\n");
+    printf("3. cos(x)\t4. arccos(x)\n");
+    printf("5. tan(x)\t6. arctan(x)\n");
+    printf("7. sec(x)\t8. arcsec(x)\n");
+    printf("9. cosec(x)\t10. arccosec(x)\n");
+    printf("11. cot(x)\t12. arccot(x)\n");
+    printf("Enter your choice: ");
+}
