@@ -5,6 +5,28 @@
 #include <string.h>
 #include <ctype.h>
 
+/*    this is a crutial function to maintain the usability of calculator   */
+void pause_and_clear() {
+    printf("\n\t>>> Press Enter to continue...");
+    
+    // Clear leftover newline characters in input buffer from previous scanf calls
+    int c;
+    do {
+        c = getchar();
+    } while (c != '\n' && c != EOF);
+
+    getchar();/*if this isn't added, then after showing output, 
+                the screen automatically clears out 
+                and does not wait for the user to press enter*/
+
+    // Clear the terminal screen cross-platform
+    #ifdef _WIN32
+        system("cls");   // Windows
+    #else
+        system("clear"); // Linux / macOS
+    #endif
+}
+
 //========================================================================
 /*   constants and user defined data types   */
 
@@ -74,8 +96,6 @@ void vector_addition();
 void vector_subtraction();
 void vector_dot();
 void vector_cross();
-
-
 
 
 /*                         TAHMID                            */
@@ -201,6 +221,7 @@ int main(){
     int running = 1;//this indicated whether the full calculator is running or not
 
     while(running){
+        printf("\nthis is the scientific calculator main menu\n\n");
         printf(">>> press 1 to continue or 0 to exit: ");
         scanf("%d", &command);
 
@@ -264,11 +285,15 @@ int main(){
                     break;
 
             }
+
+            pause_and_clear();
+
         }
         else{
             printf("\n\t>>> Thank you for using the calculator.\n\n");
             break;
         }
+
     }
 
     return 0;
@@ -312,7 +337,8 @@ void programs_names(){
     printf("\t   8. Permutation \n\n");
     printf("\t   9. Combination \n\n");
     printf("\t  10. Polynomial roots solving \n\n");
-    printf("\t  11. Conversion \n\n");
+    printf("\t  11. Unit Conversion \n\n");
+    printf("\t  12. Base Conversion \n\n");
     printf("\t >>>  Choose your program: ");
 }
 
@@ -326,9 +352,7 @@ void programs_names(){
 
 /*           main functions       */
 
-void power_root(){
-
-    printf("\n\t>>> This is power-root program\n");
+void power_root(){  
 
     double a;//this is local variable exclusive to the power_root function
 
@@ -341,7 +365,8 @@ void power_root(){
                      */
 
     while(rerun_program){
-        //whole functionality of this power_root program is in this if statement
+            printf("\n\t>>> This is power-root program\n");
+
             printf("\n\n\t Press 0 to exit...\n\n");
 
             printf("\t >>> Available operations: \n");
@@ -432,6 +457,7 @@ void power_root(){
                     break;
 
             }
+            pause_and_clear();
         }
 
     printf("\n\n");
@@ -439,11 +465,10 @@ void power_root(){
 }
 
 void matrices(){
-    printf("\n\t>>>this is matrix program\n");
-    printf("\t matrix size is maximum 10 rows and 10 columns\n\n");
-
-
+        
     while(rerun_program){
+        printf("\n\t>>>this is matrix program\n");
+        printf("\t matrix size is maximum 10 rows and 10 columns\n\n");
 
         //asking for operations
 
@@ -491,6 +516,8 @@ void matrices(){
                 printf("\n\tINVALID INPUT");
                 break;
         }
+
+        pause_and_clear();
     }
 
     printf("\n\n");
@@ -499,10 +526,9 @@ void matrices(){
 
 void vectors(){
 
-    printf("\n\t>>>this vector program\n");
-    printf("\n\n");
-
     while(rerun_program){
+        printf("\n\t>>>this vector program\n");
+        printf("\n\n");
 
         //asking for operations
 
@@ -547,7 +573,10 @@ void vectors(){
                 printf("\n\tINVALID INPUT");
                 break;
         }
+        
+        pause_and_clear();
     }
+
 
 }
 
@@ -1198,10 +1227,10 @@ void vector_cross(){
 
 /*                main programs          */
 void arithmetic_operations(){
-    printf("\n\t>>>this arithmatic operations program\n");
-    printf("\n\n");
-
+    
     while(rerun_program){
+        printf("\n\t>>>this arithmatic operations program\n");
+        printf("\n\n");
 
         //asking for operations
 
@@ -1251,17 +1280,18 @@ void arithmetic_operations(){
                 printf("\n\tINVALID INPUT");
                 break;
         }
+
+        pause_and_clear();
     }
 
 
 }
 
 void logarithms(){
-
-    printf("\n\t>>>this logarithms program\n");
-    printf("\n\n");
-
+    
     while(rerun_program){
+        printf("\n\t>>>this logarithms program\n");
+        printf("\n\n");
 
         //asking for operations
 
@@ -1301,24 +1331,25 @@ void logarithms(){
                 printf("\n\tINVALID INPUT");
                 break;
         }
+
+        pause_and_clear();
     }
 }
 
 void base_conversion(){
-    printf("\n\t>>>this vector program\n");
-    printf("\n\n");
-
+    
     while(rerun_program){
+        printf("\n\t>>>this base conversion program\n");
+        printf("\n\n");
 
         //asking for operations
 
         printf("\n\t press 0 to exit\n");
         printf("\n\t available operators......\n\n");
-        printf("\t 1. Vector addition \n");
-        printf("\t 2. Vector substraction \n");
-        printf("\t 3. Vector dot multiplication \n");
-        printf("\t 4. Vector cross multiplication \n");
-
+        printf("\t 1. Decimal to Binary\n");
+        printf("\t 2. Binary to Decimal\n");
+        printf("\t 3. Decimal to Hexadecimal\n");
+        printf("\t 4. Hexadecimal to Decimal\n");
         printf("\n\t choose your operation: ");
 
         scanf("%d", &choice);
@@ -1334,26 +1365,29 @@ void base_conversion(){
 
         switch(choice){
             case 1:
-                vector_addition();
-                break;
+                decimal_to_binary();
+                break;  
 
             case 2:
-                vector_subtraction();
+                binary_to_decimal();
                 break;
 
             case 3:
-                vector_dot();
+                decimal_to_hexadecimal();
                 break;
 
             case 4:
-                vector_cross();
+                hexadecimal_to_decimal();
                 break;
 
             default:
                 printf("\n\tINVALID INPUT");
                 break;
         }
+
+        pause_and_clear();
     }
+
 
 }
 
@@ -1737,12 +1771,12 @@ void hexadecimal_to_decimal()
 /*        main programs         */
 
 void trigonometry(){
-
-    printf("\n\t>>>this is trigonometry program\n");
-
+    
     double input_value, final_result;
-
+    
     while(rerun_program){
+        
+        printf("\n\t>>>this is trigonometry program\n");
 
         //asking for operations
 
@@ -1763,12 +1797,9 @@ void trigonometry(){
             break;
         }
 
-
         //taking input to operate
         printf("Enter the value: ");
         scanf("%lf", &input_value);
-
-        
 
         printf("\n");
 
@@ -1837,21 +1868,21 @@ void trigonometry(){
             default:
                 printf("Invalid choice!\n");
         }
+
+        pause_and_clear();
     }
 
     printf("\n\n");
 
 }
 
-void unit_conversion(){
-
-    printf("\n\t>>>this is unit_conversion program\n");
-
-
-    double input_value, final_result;
-
+void unit_conversion(){  
+    
+    double input_value, final_result; 
     
     while(rerun_program){
+        
+        printf("\n\t>>>this is unit_conversion program\n");
 
         //asking for operations
 
@@ -1983,6 +2014,8 @@ void unit_conversion(){
             default:
                 printf("Invalid choice!\n");
         }
+
+        pause_and_clear();
 
     }
 
@@ -2151,14 +2184,13 @@ double kelvin_to_fahrenheit(double k) {
 
 void factorials(){
 
-    printf("\n\t>>>this is factorials program\n");
-
+    
     while(rerun_program){
+        printf("\n\t>>>this is factorials program\n");
 
-        printf("\n\t press 0 to exit and 1 to continue\n");
-        printf("\n\t choose your operation: ");
-
+        printf("\n\t press 0 to exit and 1 to continue: ");
         scanf("%d", &choice);
+        printf("\n");
 
         if(choice == 1){
             int n;
@@ -2175,20 +2207,19 @@ void factorials(){
             break;
         }
 
+        pause_and_clear();
         
     }
 }
 
 void permutations(){
-
-    printf("\n\t>>>this is permutations program\n");
-
+    
     while(rerun_program){
+        printf("\n\t>>>this is permutations program\n");
 
-        printf("\n\t press 0 to exit and 1 to continue\n");
-        printf("\n\t choose your operation: ");
-
+        printf("\n\t press 0 to exit and 1 to continue: ");
         scanf("%d", &choice);
+        printf("\n");
 
         int n, r;
 
@@ -2206,6 +2237,7 @@ void permutations(){
             break;
         }
 
+        pause_and_clear();
         
     }
 
@@ -2213,14 +2245,13 @@ void permutations(){
 
 void combinations(){
 
-    printf("\n\t>>>this is combinations program\n");
-
     while(rerun_program){
+        printf("\n\t>>>this is combinations program\n");
 
-        printf("\n\t press 0 to exit and 1 to continue\n");
-        printf("\n\t choose your operation: ");
-
+        printf("\n\t press 0 to exit and 1 to continue: ");
         scanf("%d", &choice);
+        printf("\n");
+
 
         int n, r;
 
@@ -2237,6 +2268,7 @@ void combinations(){
             break;
         }
 
+        pause_and_clear();
         
     }
 
@@ -2244,14 +2276,13 @@ void combinations(){
 
 void polynomial_roots_solving(){
 
-    printf("\n\t>>>this is polynomial roots solving program\n");
-
+    
     while(rerun_program){
+        printf("\n\t>>>this is polynomial roots solving program\n");
 
-        printf("\n\t press 0 to exit and 1 to continue\n");
-        printf("\n\t choose your operation: ");
-
+        printf("\n\t press 0 to exit and 1 to continue: ");
         scanf("%d", &choice);
+        printf("\n");
 
         if(choice == 1){
             int a, b, c;
@@ -2271,9 +2302,9 @@ void polynomial_roots_solving(){
             break;
         }
 
+        pause_and_clear();
         
     }
-
     
 }
 
@@ -2337,6 +2368,8 @@ void polynomiyal_roots(int a, int b, int c) { // Function to calculate and displ
 
 
 }
+
+
 
 
 /*     ---------------END OF FILE-----------------------    */
